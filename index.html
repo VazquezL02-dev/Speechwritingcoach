@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 5 Public Speaking Coach 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            purple: '#6C5CE7',
+                            yellow: '#FDCB6E',
+                            pink: '#FD79A8',
+                            teal: '#00CEC9',
+                            dark: '#2D3436',
+                            light: '#F8F9FA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F4F6FB; }
+        h1, h2, h3, h4, button, .tab-btn { font-family: 'Fredoka', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c7c7c7; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+        @keyframes bounce-subtle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .animate-bounce-subtle { animation: bounce-subtle 2s infinite; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-tr from-brand-purple to-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md transform -rotate-3">
+                    <i class="fa-solid font-bold fa-bullhorn"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900 tracking-wide">Speech Quest <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full border border-amber-300 ml-1 font-semibold">2026 Diocesan Competition</span></h1>
+                    <p class="text-xs text-slate-500">Year 5 Interactive Writing Coach • Target: 3–4 Minutes</p>
+                </div>
+            </div>
+
+            <!-- Profile & Stats Summary -->
+            <div class="flex items-center space-x-4">
+                <!-- Active Student Profile Badge -->
+                <div class="flex items-center space-x-2 bg-purple-50 border border-purple-200 px-3.5 py-2 rounded-2xl">
+                    <div class="w-8 h-8 bg-brand-purple text-white rounded-full flex items-center justify-center font-bold text-xs shadow-xs" id="profile-avatar">
+                        👤
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-purple-600 font-bold uppercase block leading-none">Active Student</span>
+                        <span id="current-student-name" class="font-bold text-sm text-slate-800">Select Profile</span>
+                    </div>
+                    <button onclick="openProfileModal()" class="ml-2 bg-white hover:bg-purple-100 text-brand-purple font-bold text-xs px-2.5 py-1 rounded-xl border border-purple-200 transition-all shadow-2xs">
+                        Switch
+                    </button>
+                </div>
+
+                <!-- Speech Stats Badge -->
+                <div class="hidden md:flex items-center space-x-5 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-200">
+                    <div class="text-center">
+                        <span class="text-[10px] text-slate-400 block font-bold uppercase">Words</span>
+                        <span id="total-words-badge" class="font-heading text-base font-bold text-brand-purple">0</span>
+                    </div>
+                    <div class="h-6 w-px bg-slate-200"></div>
+                    <div class="text-center">
+                        <span class="text-[10px] text-slate-400 block font-bold uppercase">Time</span>
+                        <span id="total-time-badge" class="font-heading text-base font-bold text-teal-600">0 min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+
+        <!-- Stepper Navigation -->
+        <nav class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm overflow-x-auto">
+            <div class="flex items-center justify-between min-w-[680px]">
+                <button onclick="switchTab('brainstorm')" id="tab-brainstorm" class="tab-btn flex-1 py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all duration-200 bg-brand-purple text-white shadow-md">
+                    <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm">1</span>
+                    <span class="font-semibold text-sm">2026 Topics</span>
+                </button>
+                <div class="w-4 flex items-center justify-center text-slate-300"><i class="fa-solid fa-chevron-right text-xs"></i></div>
+
+                <button onclick="switchTab('hook')" id="tab-hook" class="tab-btn flex-1 py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all duration-200 text-slate-600 hover:bg-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center font-bold text-sm text-slate-700">2</span>
+                    <span class="font-semibold text-sm">Hook & Address</span>
+                </button>
+                <div class="w-4 flex items-center justify-center text-slate-300"><i class="fa-solid fa-chevron-right text-xs"></i></div>
+
+                <button onclick="switchTab('body')" id="tab-body" class="tab-btn flex-1 py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all duration-200 text-slate-600 hover:bg-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center font-bold text-sm text-slate-700">3</span>
+                    <span class="font-semibold text-sm">Arguments (PEEL)</span>
+                </button>
+                <div class="w-4 flex items-center justify-center text-slate-300"><i class="fa-solid fa-chevron-right text-xs"></i></div>
+
+                <button onclick="switchTab('conclusion')" id="tab-conclusion" class="tab-btn flex-1 py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all duration-200 text-slate-600 hover:bg-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center font-bold text-sm text-slate-700">4</span>
+                    <span class="font-semibold text-sm">Conclusion</span>
+                </button>
+                <div class="w-4 flex items-center justify-center text-slate-300"><i class="fa-solid fa-chevron-right text-xs"></i></div>
+
+                <button onclick="switchTab('practice')" id="tab-practice" class="tab-btn flex-1 py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all duration-200 text-slate-600 hover:bg-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center font-bold text-sm text-emerald-700">5</span>
+                    <span class="font-semibold text-sm text-emerald-700">Stage & Scorecard</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Dynamic Grid Content Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-1">
+
+            <!-- Left Panel: Interactive Workspace (8 cols) -->
+            <div class="lg:col-span-8 space-y-6">
+
+                <!-- SECTION 1: BRAINSTORMING & OFFICIAL 2026 TOPICS -->
+                <div id="section-brainstorm" class="tab-content bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-start justify-between border-b border-slate-100 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full">Step 1 of 4</span>
+                            <h2 class="text-2xl font-bold text-slate-800 mt-2">Choose Your 2026 Year 5 Topic</h2>
+                            <p class="text-sm text-slate-500">Official Catholic Education Diocese of Wollongong Topic Selection</p>
+                        </div>
+                        <div class="text-3xl text-purple-400"><i class="fa-solid fa-book-bookmark"></i></div>
+                    </div>
+
+                    <!-- Topic Selector / Custom Input -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold text-slate-700">Select one of the official 2026 Year 5 Competition Topics:</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <button onclick="selectPresetTopic('Silence speaks louder than words')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2">
+                                🤫 Silence speaks louder than words
+                            </button>
+                            <button onclick="selectPresetTopic('The smallest creatures in our gardens are the most important workers')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2">
+                                🐝 The smallest creatures in our gardens...
+                            </button>
+                            <button onclick="selectPresetTopic('Twists and turns')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2">
+                                🌀 Twists and turns
+                            </button>
+                            <button onclick="selectPresetTopic('A world without plastic')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2">
+                                🌊 A world without plastic
+                            </button>
+                            <button onclick="selectPresetTopic('&quot;A single sunbeam is enough to drive away many shadows&quot;')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2">
+                                ☀️ "A single sunbeam is enough..."
+                            </button>
+                            <button onclick="selectPresetTopic('St. Francis of Assisi')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2">
+                                🕊️ St. Francis of Assisi
+                            </button>
+                            <button onclick="selectPresetTopic('People of story')" class="topic-chip p-3 text-left border-2 border-slate-200 rounded-xl hover:border-brand-purple hover:bg-purple-50/50 transition-all font-medium text-xs text-slate-700 flex items-center gap-2 col-span-1 sm:col-span-2">
+                                📚 People of story
+                            </button>
+                        </div>
+
+                        <div class="mt-3">
+                            <label class="block text-xs font-semibold text-slate-500 mb-1">Selected Topic:</label>
+                            <input type="text" id="speech-topic" oninput="saveData()" placeholder="Click a topic above or confirm your choice..." class="w-full p-3.5 border-2 border-slate-200 rounded-2xl focus:border-brand-purple focus:ring-0 text-sm font-semibold transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Brainstorm Notes & Research Hints -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-sm font-bold text-slate-700">Brainstorm & Research Pad:</label>
+                            <button onclick="askCoachForBrainstorm()" class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1.5 rounded-xl hover:bg-amber-200 transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Get Sparky's Ideas
+                            </button>
+                        </div>
+                        <textarea id="brainstorm-notes" oninput="saveData(); updateCounts();" rows="5" placeholder="Write down your key ideas, definitions, facts, or stories:
+- What does this topic mean to you?
+- What interesting examples or stories can you share?
+- How can you connect this to real life or values?" class="w-full p-4 border-2 border-slate-200 rounded-2xl focus:border-brand-purple focus:ring-0 text-sm leading-relaxed transition-all custom-scrollbar"></textarea>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button onclick="switchTab('hook')" class="bg-brand-purple hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-2xl shadow-md transition-all flex items-center gap-2">
+                            Next: Craft Hook & Formal Address <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: THE HOOK & MANDATORY FORMAL ADDRESS -->
+                <div id="section-hook" class="tab-content hidden bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-start justify-between border-b border-slate-100 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full">Step 2 of 4</span>
+                            <h2 class="text-2xl font-bold text-slate-800 mt-2">Hook & Formal Address</h2>
+                            <p class="text-sm text-slate-500">Engage your audience AND fulfill the official competition address rule!</p>
+                        </div>
+                        <div class="text-3xl text-amber-500"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+
+                    <!-- Competition Mandatory Rule Alert -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start space-x-3 text-xs text-amber-900">
+                        <i class="fa-solid fa-circle-exclamation text-amber-600 text-lg flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-amber-900 font-bold text-sm">Official Competition Rule: Address the Chairperson!</strong>
+                            <p class="mt-1 text-amber-800">All speakers must address the Chairperson and audience in their introduction (e.g., <em>"Mr Chairperson, adjudicators, teachers, parents, and fellow Year 5 students..."</em> or <em>"Madam Chairperson..."</em>).</p>
+                        </div>
+                    </div>
+
+                    <!-- Hook Inspiration Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="p-3 border border-purple-100 bg-purple-50/60 rounded-xl">
+                            <h4 class="font-bold text-xs text-brand-purple uppercase tracking-wide">1. Rhetorical Question</h4>
+                            <p class="text-xs text-slate-600 mt-1">"Have you ever wondered what the world would sound like if we all paused to listen?"</p>
+                        </div>
+                        <div class="p-3 border border-amber-100 bg-amber-50/60 rounded-xl">
+                            <h4 class="font-bold text-xs text-amber-800 uppercase tracking-wide">2. Surprising Fact</h4>
+                            <p class="text-xs text-slate-600 mt-1">"Did you know that over 300 million tonnes of plastic are produced every single year?"</p>
+                        </div>
+                        <div class="p-3 border border-teal-100 bg-teal-50/60 rounded-xl">
+                            <h4 class="font-bold text-xs text-teal-800 uppercase tracking-wide">3. 'Imagine' Scenario</h4>
+                            <p class="text-xs text-slate-600 mt-1">"Imagine a tiny garden where the smallest creature works silently to save our planet..."</p>
+                        </div>
+                        <div class="p-3 border border-pink-100 bg-pink-50/60 rounded-xl">
+                            <h4 class="font-bold text-xs text-pink-800 uppercase tracking-wide">4. Inspiring Quote / Story</h4>
+                            <p class="text-xs text-slate-600 mt-1">"St. Francis of Assisi once said, 'Start by doing what's necessary; then do what's possible...'"</p>
+                        </div>
+                    </div>
+
+                    <!-- Hook Writing Area -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-slate-700">Write Your Formal Address & Hook:</label>
+                        <textarea id="hook-text" oninput="saveData(); updateCounts();" rows="5" placeholder="Example starting structure:
+Mr Chairperson, adjudicators, teachers, and fellow Year 5 students. 
+
+[Insert your catchy Hook here: a question, story, quote, or surprising fact that connects directly to your topic!]" class="w-full p-4 border-2 border-slate-200 rounded-2xl focus:border-brand-purple focus:ring-0 text-sm leading-relaxed transition-all custom-scrollbar"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <button onclick="askCoachFeedback('hook')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-5 rounded-2xl shadow-sm transition-all flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-comment-dots"></i> Coach My Introduction!
+                        </button>
+                        <button onclick="switchTab('body')" class="bg-brand-purple hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-2xl shadow-md transition-all flex items-center gap-2">
+                            Next: Write Arguments <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: BODY ARGUMENTS (PEEL STRUCTURE) -->
+                <div id="section-body" class="tab-content hidden bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-start justify-between border-b border-slate-100 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full">Step 3 of 4</span>
+                            <h2 class="text-2xl font-bold text-slate-800 mt-2">Build Your Arguments (PEEL)</h2>
+                            <p class="text-sm text-slate-500">Adjudicators look for varied, interesting, and topic-related content!</p>
+                        </div>
+                        <div class="text-3xl text-teal-500"><i class="fa-solid fa-layer-group"></i></div>
+                    </div>
+
+                    <!-- PEEL Helper Guide -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-4 text-xs">
+                        <div class="flex-1 min-w-[120px]">
+                            <span class="font-bold text-purple-600 block text-sm">P = Point</span>
+                            <span class="text-slate-500">State your main argument clearly.</span>
+                        </div>
+                        <div class="flex-1 min-w-[120px]">
+                            <span class="font-bold text-teal-600 block text-sm">E = Explain</span>
+                            <span class="text-slate-500">Explain why this matters or how it works.</span>
+                        </div>
+                        <div class="flex-1 min-w-[120px]">
+                            <span class="font-bold text-amber-600 block text-sm">E = Example</span>
+                            <span class="text-slate-500">Give a real-life fact, quote, or story.</span>
+                        </div>
+                        <div class="flex-1 min-w-[120px]">
+                            <span class="font-bold text-pink-600 block text-sm">L = Link</span>
+                            <span class="text-slate-500">Link back to your speech topic.</span>
+                        </div>
+                    </div>
+
+                    <!-- Argument 1 -->
+                    <div class="space-y-2 border-l-4 border-purple-400 pl-4 py-1">
+                        <label class="block text-sm font-bold text-slate-800">Argument 1 (Your strongest point):</label>
+                        <textarea id="arg1-text" oninput="saveData(); updateCounts();" rows="4" placeholder="First of all..." class="w-full p-3 border border-slate-200 rounded-xl focus:border-brand-purple focus:ring-0 text-sm leading-relaxed transition-all"></textarea>
+                    </div>
+
+                    <!-- Argument 2 -->
+                    <div class="space-y-2 border-l-4 border-teal-400 pl-4 py-1">
+                        <label class="block text-sm font-bold text-slate-800">Argument 2 (Your second point):</label>
+                        <textarea id="arg2-text" oninput="saveData(); updateCounts();" rows="4" placeholder="Furthermore..." class="w-full p-3 border border-slate-200 rounded-xl focus:border-brand-purple focus:ring-0 text-sm leading-relaxed transition-all"></textarea>
+                    </div>
+
+                    <!-- Argument 3 -->
+                    <div class="space-y-2 border-l-4 border-amber-400 pl-4 py-1">
+                        <label class="block text-sm font-bold text-slate-800">Argument 3 (Your final point / Perspective):</label>
+                        <textarea id="arg3-text" oninput="saveData(); updateCounts();" rows="4" placeholder="Finally..." class="w-full p-3 border border-slate-200 rounded-xl focus:border-brand-purple focus:ring-0 text-sm leading-relaxed transition-all"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <button onclick="askCoachFeedback('body')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-5 rounded-2xl shadow-sm transition-all flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-comment-dots"></i> Coach My Arguments!
+                        </button>
+                        <button onclick="switchTab('conclusion')" class="bg-brand-purple hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-2xl shadow-md transition-all flex items-center gap-2">
+                            Next: Conclusion <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: CONCLUSION -->
+                <div id="section-conclusion" class="tab-content hidden bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-start justify-between border-b border-slate-100 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full">Step 4 of 4</span>
+                            <h2 class="text-2xl font-bold text-slate-800 mt-2">Effective & Memorable Conclusion</h2>
+                            <p class="text-sm text-slate-500">Adjudicators look for an appropriate, powerful finish that leaves an impact.</p>
+                        </div>
+                        <div class="text-3xl text-pink-500"><i class="fa-solid fa-trophy"></i></div>
+                    </div>
+
+                    <!-- Conclusion Checklist -->
+                    <div class="bg-pink-50/60 border border-pink-100 rounded-2xl p-4 text-xs text-slate-700 space-y-2">
+                        <p class="font-bold text-pink-900 text-sm">Conclusion Guidelines:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Signal the end:</strong> "In conclusion..." or "To summarize..."</li>
+                            <li><strong>Summarize main points:</strong> Briefly remind the audience of your key ideas in fresh words.</li>
+                            <li><strong>Final Thought / Call to Action:</strong> End with a strong message, question, or inspiring closing statement.</li>
+                            <li><strong>Formal Thank You:</strong> Conclude politely with "Thank you."</li>
+                        </ul>
+                    </div>
+
+                    <!-- Conclusion Input -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-slate-700">Write Your Conclusion:</label>
+                        <textarea id="conclusion-text" oninput="saveData(); updateCounts();" rows="5" placeholder="To wrap up..." class="w-full p-4 border-2 border-slate-200 rounded-2xl focus:border-brand-purple focus:ring-0 text-sm leading-relaxed transition-all custom-scrollbar"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <button onclick="askCoachFeedback('conclusion')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3 px-5 rounded-2xl shadow-sm transition-all flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-comment-dots"></i> Coach My Conclusion!
+                        </button>
+                        <button onclick="switchTab('practice')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-2xl shadow-md transition-all flex items-center gap-2">
+                            View Full Speech & Stage <i class="fa-solid fa-microphone text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 5: FULL SPEECH, TELEPROMPTER & ADJUDICATOR RUBRIC -->
+                <div id="section-practice" class="tab-content hidden space-y-6">
+
+                    <!-- Timing Warning Bar -->
+                    <div id="timing-warning-box" class="bg-indigo-900 text-white p-5 rounded-3xl shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 border border-indigo-700">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center font-bold text-lg">⏱️</div>
+                            <div>
+                                <h4 class="font-bold text-base">Year 5 Competition Rule: 3 to 4 Minutes</h4>
+                                <p class="text-xs text-indigo-200" id="timing-status-text">Target: 375 - 500 words (Warning bell at 3 mins • Bell at 4 mins)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-indigo-950 px-4 py-2 rounded-2xl border border-indigo-800">
+                            <span class="text-xs text-indigo-300 font-semibold uppercase">Status:</span>
+                            <span id="timing-status-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-400 text-slate-900">Calculating...</span>
+                        </div>
+                    </div>
+
+                    <!-- Practice Control Bar -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">Your Stage Draft</h2>
+                            <p class="text-sm text-slate-500">Rehearse with the teleprompter or complete your adjudicator self-check!</p>
+                        </div>
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <button onclick="toggleTeleprompter()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-2xl shadow-md transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> Launch Teleprompter
+                            </button>
+                            <button onclick="copyFullSpeech()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-2xl transition-all" title="Copy Speech Text">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Assembled Full Speech Display -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                        <div class="text-center border-b border-slate-100 pb-6">
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-widest bg-purple-50 px-3 py-1 rounded-full">Catholic Education Diocese of Wollongong Entry</span>
+                            <h2 id="final-topic-heading" class="text-2xl font-bold text-slate-800 mt-3">Untitled Speech</h2>
+                            <div class="flex items-center justify-center space-x-4 mt-3 text-xs text-slate-500">
+                                <span><i class="fa-solid fa-font text-brand-purple"></i> <strong id="speech-word-count">0</strong> words</span>
+                                <span>•</span>
+                                <span><i class="fa-regular fa-clock text-teal-600"></i> Approx <strong id="speech-est-time">0 min</strong> (speaking rate)</span>
+                            </div>
+                        </div>
+
+                        <div id="full-speech-body" class="prose max-w-none text-slate-700 leading-relaxed font-body text-base space-y-4">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Official Adjudicator Checklist -->
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800">Diocesan Adjudicator's Checklist</h3>
+                                <p class="text-xs text-slate-500">Self-check your performance against official judging criteria before competition day!</p>
+                            </div>
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full border border-amber-200">Official Rubric</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Structure & Content -->
+                            <div class="space-y-3">
+                                <h4 class="font-bold text-sm text-brand-purple flex items-center gap-2">
+                                    <i class="fa-solid fa-file-lines"></i> Structure & Content
+                                </h4>
+                                <div class="space-y-2 text-xs text-slate-700">
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-brand-purple focus:ring-0 w-4 h-4">
+                                        <span><strong>Introduction:</strong> Includes formal address to Chairperson & audience.</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-brand-purple focus:ring-0 w-4 h-4">
+                                        <span><strong>Content:</strong> Varied, interesting, and directly related to the topic.</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-brand-purple focus:ring-0 w-4 h-4">
+                                        <span><strong>Audience Engagement:</strong> Holds interest from start to finish.</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-brand-purple focus:ring-0 w-4 h-4">
+                                        <span><strong>Conclusion:</strong> Appropriate, memorable, and effective summary.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Presence & Delivery -->
+                            <div class="space-y-3">
+                                <h4 class="font-bold text-sm text-teal-600 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-astronaut"></i> Presence & Delivery
+                                </h4>
+                                <div class="space-y-2 text-xs text-slate-700">
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-teal-600 focus:ring-0 w-4 h-4">
+                                        <span><strong>Voice Projection:</strong> Clear, loud enough without a microphone.</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-teal-600 focus:ring-0 w-4 h-4">
+                                        <span><strong>Fluency & Pace:</strong> Smooth delivery, not too fast or too slow.</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-teal-600 focus:ring-0 w-4 h-4">
+                                        <span><strong>Voice Intonation & Expression:</strong> Varied pitch, feeling, and emphasis.</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200 cursor-pointer">
+                                        <input type="checkbox" class="rounded text-teal-600 focus:ring-0 w-4 h-4">
+                                        <span><strong>Eye Contact & Posture:</strong> Natural, sincere, confident stance looking at audience.</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Panel: AI Interactive Speech Coach "Sparky" (4 cols) -->
+            <div class="lg:col-span-4 sticky top-24">
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden flex flex-col h-[680px]">
+
+                    <!-- Coach Header -->
+                    <div class="bg-gradient-to-r from-brand-purple to-indigo-600 p-4 text-white flex items-center justify-between shadow-sm">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center font-bold text-xl shadow-inner animate-bounce-subtle">
+                                🐶
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-base leading-tight">Coach Sparky</h3>
+                                <p class="text-xs text-purple-200">Interactive Chat & Brainstorming</p>
+                            </div>
+                        </div>
+                        <button onclick="clearChatHistory()" class="text-[10px] bg-white/20 hover:bg-white/30 text-white font-semibold px-2.5 py-1 rounded-lg transition-all" title="Reset Chat History">
+                            <i class="fa-solid fa-rotate-right mr-1"></i>Reset Chat
+                        </button>
+                    </div>
+
+                    <!-- Chat / Feedback Scroll Area -->
+                    <div id="coach-chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar bg-slate-50">
+
+                        <!-- Welcome Message from Sparky -->
+                        <div class="flex items-start space-x-2">
+                            <div class="w-7 h-7 bg-amber-400 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1 shadow-sm">🐶</div>
+                            <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200 text-xs leading-relaxed text-slate-700 shadow-sm space-y-2">
+                                <p class="font-bold text-slate-900">G'day Year 5 Champion! 🏆</p>
+                                <p>I'm Sparky, your 2026 Diocesan Public Speaking Coach!</p>
+                                <p>You can <strong>chat with me anytime</strong> below! Ask me to help brainstorm ideas, check your work, suggest powerful words, or practice your speech presentation.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Dynamic Quick Prompt Chips -->
+                    <div class="px-3 py-2 bg-slate-100/70 border-t border-slate-200 space-y-1.5">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider px-1">Ask Sparky:</div>
+                        <div class="flex flex-wrap gap-1.5 overflow-x-auto max-h-16 custom-scrollbar pb-1">
+                            <button onclick="sendQuickChatMessage('Help me write a sizzling start!')" class="text-[11px] bg-white hover:bg-amber-50 text-amber-800 font-medium px-2.5 py-1 rounded-xl border border-amber-200 transition-all shadow-2xs whitespace-nowrap">
+                                🔥 Sizzling Start Ideas
+                            </button>
+                            <button onclick="sendQuickChatMessage('Help me brainstorm 3 cool ideas for my speech topic!')" class="text-[11px] bg-white hover:bg-purple-50 text-purple-700 font-medium px-2.5 py-1 rounded-xl border border-purple-200 transition-all shadow-2xs whitespace-nowrap">
+                                💡 Brainstorm 3 ideas
+                            </button>
+                            <button onclick="sendQuickChatMessage('What is an example of the PEEL structure for my arguments?')" class="text-[11px] bg-white hover:bg-teal-50 text-teal-700 font-medium px-2.5 py-1 rounded-xl border border-teal-200 transition-all shadow-2xs whitespace-nowrap">
+                                🧱 PEEL Example
+                            </button>
+                            <button onclick="sendQuickChatMessage('Can you check if my speech is long enough for the 3-4 minute rule?')" class="text-[11px] bg-white hover:bg-pink-50 text-pink-700 font-medium px-2.5 py-1 rounded-xl border border-pink-200 transition-all shadow-2xs whitespace-nowrap">
+                                ⏱️ Check Speech Length
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Real-Time Chat Input Form -->
+                    <form onsubmit="handleUserChatSubmit(event)" class="p-3 bg-white border-t border-slate-200 flex items-center space-x-2">
+                        <input type="text" id="user-chat-input" placeholder="Ask Sparky anything about your speech..." class="flex-1 bg-slate-50 border border-slate-200 focus:border-brand-purple focus:ring-0 text-xs p-3 rounded-2xl transition-all font-medium">
+                        <button type="submit" id="chat-send-btn" class="bg-brand-purple hover:bg-purple-700 text-white w-10 h-10 rounded-2xl flex items-center justify-center text-sm shadow-sm transition-all flex-shrink-0">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- TELEPROMPTER MODAL -->
+    <div id="teleprompter-modal" class="fixed inset-0 bg-slate-950/95 z-50 hidden flex-col justify-between p-6 sm:p-10 text-white">
+        <!-- Top Controls -->
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleTeleprompter()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all">
+                    <i class="fa-solid fa-xmark mr-1"></i> Exit Stage
+                </button>
+                <div class="text-lg font-bold text-amber-400 font-mono" id="teleprompter-timer">00:00</div>
+                <div class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-xl hidden sm:block">
+                    Rule Warning: Bell at 3:00 | Final Bell at 4:00
+                </div>
+            </div>
+
+            <!-- Scroll Controls -->
+            <div class="flex items-center space-x-4">
+                <span class="text-xs text-slate-400 font-semibold">Speed:</span>
+                <button onclick="changeScrollSpeed(-1)" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg font-bold text-sm">-</button>
+                <span id="speed-label" class="text-sm font-bold text-teal-400 w-6 text-center">2</span>
+                <button onclick="changeScrollSpeed(1)" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg font-bold text-sm">+</button>
+
+                <button id="teleprompter-play-btn" onclick="toggleAutoScroll()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-5 py-2 rounded-xl text-sm transition-all ml-2">
+                    <i class="fa-solid fa-play"></i> Start Rehearsal
+                </button>
+            </div>
+        </div>
+
+        <!-- Teleprompter Scrolling Content -->
+        <div id="teleprompter-scroll-box" class="flex-1 my-8 overflow-y-auto custom-scrollbar px-4 sm:px-20 text-center flex flex-col items-center">
+            <div id="teleprompter-text" class="text-2xl sm:text-4xl leading-relaxed font-heading max-w-4xl tracking-wide py-20 text-slate-100 space-y-8">
+                <!-- Injected text -->
+            </div>
+        </div>
+
+        <!-- Bottom Guidance Bar -->
+        <div class="text-center text-xs text-slate-400 border-t border-slate-800 pt-3 flex items-center justify-around">
+            <span>💡 <strong>Projection Tip:</strong> Speak loud and clear—no microphones permitted in competition!</span>
+            <span>👁️ Keep eye contact with the audience!</span>
+        </div>
+    </div>
+
+    <!-- STUDENT PROFILE SELECTION MODAL -->
+    <div id="profile-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white max-w-2xl w-full rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] flex flex-col border border-slate-100">
+            <div class="text-center space-y-2 border-b border-slate-100 pb-4">
+                <div class="w-16 h-16 bg-gradient-to-tr from-brand-purple to-indigo-600 text-white rounded-3xl mx-auto flex items-center justify-center text-3xl shadow-md transform -rotate-3">
+                    🎓
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">Who is using Speech Quest today?</h2>
+                <p class="text-xs text-slate-500">Select your name to load your saved speech draft and Sparky's feedback!</p>
+            </div>
+
+            <!-- Class Tabs -->
+            <div class="flex border-b border-slate-200 space-x-2">
+                <button onclick="switchClassTab('class-5w')" id="class-tab-5w" class="py-2 px-4 font-bold text-sm border-b-2 border-brand-purple text-brand-purple transition-all">
+                    Class 5W
+                </button>
+                <button onclick="switchClassTab('class-5b')" id="class-tab-5b" class="py-2 px-4 font-bold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all">
+                    Class 5B
+                </button>
+            </div>
+
+            <!-- Student Name Grid -->
+            <div class="flex-1 overflow-y-auto custom-scrollbar pr-1">
+                <!-- Class 5W Names -->
+                <div id="grid-class-5w" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Class 5B Names -->
+                <div id="grid-class-5b" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 hidden">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="text-center pt-2 border-t border-slate-100">
+                <p class="text-[11px] text-slate-400">💡 All progress and Sparky's chat feedback are automatically saved to your profile!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP JAVASCRIPT LOGIC -->
+    <script>
+        // Gemini API Setup
+        // Gemini API calls are routed securely through /api/sparky.
+        let currentTab = 'brainstorm';
+
+        // Official Class Lists (First Names Only)
+        const CLASS_5W_STUDENTS = [
+            "Isabelle", "Malia", "Addison", "Simone", "Prashish", "Samuel", "Samrat", 
+            "Vincent", "Josias", "Logan", "Denise", "Skylah", "Elizabeth", "Charlie", 
+            "Vase", "Brayden", "Jordan", "Miraya", "Shayna", "Felicia", "Juana", 
+            "Lyn", "Ithiel", "Daniel", "Dantae", "Ollie", "Oliver", "Prisha", "JayJay"
+        ];
+
+        const CLASS_5B_STUDENTS = [
+            "Lily", "Xander", "John", "Fabian", "Charles", "Katharine", "Marion", 
+            "Elyse", "Katherine", "Joy", "Syon", "Reyansh", "Oskar", "Angelina", 
+            "Lyon", "Georgia", "Jimmy", "Leah", "Raymond", "Javen"
+        ];
+
+        // Active Profile State
+        let currentStudent = null;
+        let chatConversationHistory = [];
+
+        // Teleprompter state
+        let isScrolling = false;
+        let scrollInterval = null;
+        let scrollSpeed = 2;
+        let timerInterval = null;
+        let secondsElapsed = 0;
+
+        // On Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderStudentGrids();
+            
+            // Check if profile saved
+            const lastStudent = localStorage.getItem('active_speech_student_2026');
+            if (lastStudent) {
+                setStudentProfile(lastStudent, false);
+                document.getElementById('profile-modal').classList.add('hidden');
+            } else {
+                openProfileModal();
+            }
+        });
+
+        function renderStudentGrids() {
+            const grid5w = document.getElementById('grid-class-5w');
+            const grid5b = document.getElementById('grid-class-5b');
+
+            grid5w.innerHTML = CLASS_5W_STUDENTS.map(name => `
+                <button onclick="setStudentProfile('${name}')" class="p-3 bg-slate-50 hover:bg-purple-50 hover:border-brand-purple border border-slate-200 rounded-2xl font-bold text-xs text-slate-700 flex items-center space-x-2 transition-all shadow-2xs">
+                    <span class="w-6 h-6 rounded-full bg-purple-100 text-brand-purple flex items-center justify-center font-bold text-[10px]">${name[0]}</span>
+                    <span class="truncate">${name}</span>
+                </button>
+            `).join('');
+
+            grid5b.innerHTML = CLASS_5B_STUDENTS.map(name => `
+                <button onclick="setStudentProfile('${name}')" class="p-3 bg-slate-50 hover:bg-purple-50 hover:border-brand-purple border border-slate-200 rounded-2xl font-bold text-xs text-slate-700 flex items-center space-x-2 transition-all shadow-2xs">
+                    <span class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-[10px]">${name[0]}</span>
+                    <span class="truncate">${name}</span>
+                </button>
+            `).join('');
+        }
+
+        function switchClassTab(classId) {
+            document.getElementById('grid-class-5w').classList.toggle('hidden', classId !== 'class-5w');
+            document.getElementById('grid-class-5b').classList.toggle('hidden', classId !== 'class-5b');
+
+            const tab5w = document.getElementById('class-tab-5w');
+            const tab5b = document.getElementById('class-tab-5b');
+
+            if (classId === 'class-5w') {
+                tab5w.className = "py-2 px-4 font-bold text-sm border-b-2 border-brand-purple text-brand-purple transition-all";
+                tab5b.className = "py-2 px-4 font-bold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all";
+            } else {
+                tab5b.className = "py-2 px-4 font-bold text-sm border-b-2 border-brand-purple text-brand-purple transition-all";
+                tab5w.className = "py-2 px-4 font-bold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all";
+            }
+        }
+
+        function openProfileModal() {
+            document.getElementById('profile-modal').classList.remove('hidden');
+        }
+
+        function setStudentProfile(studentName, autoClose = true) {
+            if (currentStudent) {
+                saveData();
+            }
+
+            currentStudent = studentName;
+            localStorage.setItem('active_speech_student_2026', studentName);
+
+            // Update Header
+            document.getElementById('current-student-name').innerText = studentName;
+            document.getElementById('profile-avatar').innerText = studentName[0].toUpperCase();
+
+            // Load student specific data
+            loadSavedData();
+            updateCounts();
+
+            if (autoClose) {
+                document.getElementById('profile-modal').classList.add('hidden');
+            }
+        }
+
+        // Local Storage saving per student
+        function saveData() {
+            if (!currentStudent) return;
+            const data = {
+                topic: document.getElementById('speech-topic').value,
+                notes: document.getElementById('brainstorm-notes').value,
+                hook: document.getElementById('hook-text').value,
+                arg1: document.getElementById('arg1-text').value,
+                arg2: document.getElementById('arg2-text').value,
+                arg3: document.getElementById('arg3-text').value,
+                conclusion: document.getElementById('conclusion-text').value,
+                chatHistory: chatConversationHistory,
+                chatHTML: document.getElementById('coach-chat-box').innerHTML
+            };
+            localStorage.setItem(`year5_speech_data_${currentStudent.toLowerCase()}`, JSON.stringify(data));
+        }
+
+        function loadSavedData() {
+            if (!currentStudent) return;
+            const raw = localStorage.getItem(`year5_speech_data_${currentStudent.toLowerCase()}`);
+            
+            // Clear inputs first
+            document.getElementById('speech-topic').value = '';
+            document.getElementById('brainstorm-notes').value = '';
+            document.getElementById('hook-text').value = '';
+            document.getElementById('arg1-text').value = '';
+            document.getElementById('arg2-text').value = '';
+            document.getElementById('arg3-text').value = '';
+            document.getElementById('conclusion-text').value = '';
+
+            if (!raw) {
+                // Initial Welcome Chat for new student profile
+                chatConversationHistory = [];
+                document.getElementById('coach-chat-box').innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <div class="w-7 h-7 bg-amber-400 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1 shadow-sm">🐶</div>
+                        <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200 text-xs leading-relaxed text-slate-700 shadow-sm space-y-2">
+                            <p class="font-bold text-slate-900">G'day ${currentStudent}! 👋🏆</p>
+                            <p>I'm Sparky, your 2026 Diocesan Public Speaking Coach!</p>
+                            <p>I'm super excited to work with you on your Year 5 speech. Pick a topic on the left or chat with me anytime!</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                const data = JSON.parse(raw);
+                if (data.topic) document.getElementById('speech-topic').value = data.topic;
+                if (data.notes) document.getElementById('brainstorm-notes').value = data.notes;
+                if (data.hook) document.getElementById('hook-text').value = data.hook;
+                if (data.arg1) document.getElementById('arg1-text').value = data.arg1;
+                if (data.arg2) document.getElementById('arg2-text').value = data.arg2;
+                if (data.arg3) document.getElementById('arg3-text').value = data.arg3;
+                if (data.conclusion) document.getElementById('conclusion-text').value = data.conclusion;
+                
+                if (data.chatHistory) chatConversationHistory = data.chatHistory;
+                if (data.chatHTML) document.getElementById('coach-chat-box').innerHTML = data.chatHTML;
+            } catch(e) { console.error("Error loading student profile data", e); }
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            currentTab = tabId;
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-purple', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600');
+                const badge = btn.querySelector('span:first-child');
+                if (badge && !btn.id.includes('practice')) {
+                    badge.classList.remove('bg-white/20', 'text-white');
+                    badge.classList.add('bg-slate-200', 'text-slate-700');
+                }
+            });
+
+            const activeSec = document.getElementById(`section-${tabId}`);
+            if (activeSec) activeSec.classList.remove('hidden');
+
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brand-purple', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-600');
+                const badge = activeBtn.querySelector('span:first-child');
+                if (badge) {
+                    badge.classList.add('bg-white/20', 'text-white');
+                    badge.classList.remove('bg-slate-200', 'text-slate-700');
+                }
+            }
+
+            if (tabId === 'practice') {
+                assembleFullSpeech();
+            }
+        }
+
+        function selectPresetTopic(topic) {
+            const cleanTopic = topic.replace(/&quot;/g, '"');
+            const topicInput = document.getElementById('speech-topic');
+            topicInput.value = cleanTopic;
+            saveData();
+            
+            sendInteractiveMessageToSparky(`I chose the topic: "${cleanTopic}". Can you give me 2 exciting research questions or angles to think about?`);
+        }
+
+        function updateCounts() {
+            const hook = document.getElementById('hook-text').value || '';
+            const arg1 = document.getElementById('arg1-text').value || '';
+            const arg2 = document.getElementById('arg2-text').value || '';
+            const arg3 = document.getElementById('arg3-text').value || '';
+            const conclusion = document.getElementById('conclusion-text').value || '';
+
+            const fullText = `${hook} ${arg1} ${arg2} ${arg3} ${conclusion}`.trim();
+            const words = fullText ? fullText.split(/\s+/).filter(w => w.length > 0).length : 0;
+            
+            const minutes = (words / 125).toFixed(1);
+
+            document.getElementById('total-words-badge').innerText = words;
+            document.getElementById('total-time-badge').innerText = `${minutes} min`;
+
+            const badge = document.getElementById('timing-status-badge');
+            const statusText = document.getElementById('timing-status-text');
+            if (badge && statusText) {
+                if (words < 300) {
+                    badge.innerText = "Too Short (<3 Mins)";
+                    badge.className = "text-xs font-bold px-2.5 py-1 rounded-full bg-rose-500 text-white";
+                    statusText.innerText = `${words} words written. Need around 375–500 words for the 3-4 minute rule.`;
+                } else if (words >= 300 && words <= 520) {
+                    badge.innerText = "Perfect Length! (3-4 Mins)";
+                    badge.className = "text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500 text-white";
+                    statusText.innerText = `${words} words written (~${minutes} mins). Fits the 3–4 minute Year 5 competition requirement!`;
+                } else {
+                    badge.innerText = "Too Long (>4 Mins)";
+                    badge.className = "text-xs font-bold px-2.5 py-1 rounded-full bg-amber-400 text-slate-900";
+                    statusText.innerText = `${words} words written (~${minutes} mins). Try trimming slightly to avoid hitting the 4-minute bell!`;
+                }
+            }
+        }
+
+        function assembleFullSpeech() {
+            const topic = document.getElementById('speech-topic').value || 'Untitled Topic';
+            const hook = document.getElementById('hook-text').value || '*(Formal Address & Hook not written yet)*';
+            const arg1 = document.getElementById('arg1-text').value || '';
+            const arg2 = document.getElementById('arg2-text').value || '';
+            const arg3 = document.getElementById('arg3-text').value || '';
+            const conclusion = document.getElementById('conclusion-text').value || '*(Conclusion not written yet)*';
+
+            document.getElementById('final-topic-heading').innerText = topic;
+
+            const fullBody = document.getElementById('full-speech-body');
+            fullBody.innerHTML = `
+                <div class="p-4 bg-purple-50/50 border-l-4 border-brand-purple rounded-r-xl">
+                    <h4 class="text-xs font-bold text-brand-purple uppercase tracking-wider mb-1">Formal Address & Hook</h4>
+                    <p class="whitespace-pre-line">${escapeHtml(hook)}</p>
+                </div>
+                ${arg1 ? `
+                <div class="p-4 bg-slate-50 border-l-4 border-purple-400 rounded-r-xl">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Argument 1</h4>
+                    <p class="whitespace-pre-line">${escapeHtml(arg1)}</p>
+                </div>` : ''}
+                ${arg2 ? `
+                <div class="p-4 bg-slate-50 border-l-4 border-teal-400 rounded-r-xl">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Argument 2</h4>
+                    <p class="whitespace-pre-line">${escapeHtml(arg2)}</p>
+                </div>` : ''}
+                ${arg3 ? `
+                <div class="p-4 bg-slate-50 border-l-4 border-amber-400 rounded-r-xl">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Argument 3</h4>
+                    <p class="whitespace-pre-line">${escapeHtml(arg3)}</p>
+                </div>` : ''}
+                <div class="p-4 bg-pink-50/50 border-l-4 border-pink-400 rounded-r-xl">
+                    <h4 class="text-xs font-bold text-pink-700 uppercase tracking-wider mb-1">Conclusion</h4>
+                    <p class="whitespace-pre-line">${escapeHtml(conclusion)}</p>
+                </div>
+            `;
+
+            const fullText = `${hook} ${arg1} ${arg2} ${arg3} ${conclusion}`.trim();
+            const words = fullText ? fullText.split(/\s+/).filter(w => w.length > 0).length : 0;
+            document.getElementById('speech-word-count').innerText = words;
+            document.getElementById('speech-est-time').innerText = `${(words / 125).toFixed(1)} mins`;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function copyFullSpeech() {
+            const topic = document.getElementById('speech-topic').value;
+            const hook = document.getElementById('hook-text').value;
+            const arg1 = document.getElementById('arg1-text').value;
+            const arg2 = document.getElementById('arg2-text').value;
+            const arg3 = document.getElementById('arg3-text').value;
+            const conclusion = document.getElementById('conclusion-text').value;
+
+            const textToCopy = `TOPIC: ${topic}\nYEAR 5 DIOCESAN SPEECH DRAFT\nSPEAKER: ${currentStudent || 'Year 5 Student'}\n\n--- INTRODUCTION & FORMAL ADDRESS ---\n${hook}\n\n--- ARGUMENT 1 ---\n${arg1}\n\n--- ARGUMENT 2 ---\n${arg2}\n\n--- ARGUMENT 3 ---\n${arg3}\n\n--- CONCLUSION ---\n${conclusion}`;
+
+            const el = document.createElement('textarea');
+            el.value = textToCopy;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            appendSparkyChatMessage("📋 Copied your full speech to your clipboard! Ready to paste into Google Docs or print out for flashcards.");
+        }
+
+        // TELEPROMPTER LOGIC
+        function toggleTeleprompter() {
+            const modal = document.getElementById('teleprompter-modal');
+            const topic = document.getElementById('speech-topic').value || 'Your Speech';
+            const hook = document.getElementById('hook-text').value || '';
+            const arg1 = document.getElementById('arg1-text').value || '';
+            const arg2 = document.getElementById('arg2-text').value || '';
+            const arg3 = document.getElementById('arg3-text').value || '';
+            const conclusion = document.getElementById('conclusion-text').value || '';
+
+            if (modal.classList.contains('hidden')) {
+                const textContainer = document.getElementById('teleprompter-text');
+                textContainer.innerHTML = `
+                    <div class="text-amber-400 font-bold mb-10 text-3xl uppercase tracking-widest">${escapeHtml(topic)}</div>
+                    <p class="mb-12 text-purple-200">${escapeHtml(hook)}</p>
+                    ${arg1 ? `<p class="mb-12">${escapeHtml(arg1)}</p>` : ''}
+                    ${arg2 ? `<p class="mb-12">${escapeHtml(arg2)}</p>` : ''}
+                    ${arg3 ? `<p class="mb-12">${escapeHtml(arg3)}</p>` : ''}
+                    <p class="mb-12 text-pink-300">${escapeHtml(conclusion)}</p>
+                    <div class="text-emerald-400 font-bold mt-20 text-2xl">👏 THE END! Great Speech, ${currentStudent || 'Champion'}! 👏</div>
+                `;
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                resetTimer();
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                stopAutoScroll();
+                stopTimer();
+            }
+        }
+
+        function changeScrollSpeed(delta) {
+            scrollSpeed = Math.max(1, Math.min(10, scrollSpeed + delta));
+            document.getElementById('speed-label').innerText = scrollSpeed;
+        }
+
+        function toggleAutoScroll() {
+            if (isScrolling) {
+                stopAutoScroll();
+                stopTimer();
+            } else {
+                startAutoScroll();
+                startTimer();
+            }
+        }
+
+        function startAutoScroll() {
+            isScrolling = true;
+            document.getElementById('teleprompter-play-btn').innerHTML = `<i class="fa-solid fa-pause"></i> Pause`;
+            document.getElementById('teleprompter-play-btn').classList.replace('bg-amber-400', 'bg-rose-500');
+            document.getElementById('teleprompter-play-btn').classList.replace('text-slate-900', 'text-white');
+
+            const container = document.getElementById('teleprompter-scroll-box');
+            scrollInterval = setInterval(() => {
+                container.scrollTop += scrollSpeed;
+            }, 30);
+        }
+
+        function stopAutoScroll() {
+            isScrolling = false;
+            clearInterval(scrollInterval);
+            const btn = document.getElementById('teleprompter-play-btn');
+            if (btn) {
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> Start Rehearsal`;
+                btn.classList.replace('bg-rose-500', 'bg-amber-400');
+                btn.classList.replace('text-white', 'text-slate-900');
+            }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+                const secs = String(secondsElapsed % 60).padStart(2, '0');
+                const timerEl = document.getElementById('teleprompter-timer');
+                timerEl.innerText = `${mins}:${secs}`;
+
+                if (secondsElapsed >= 180 && secondsElapsed < 240) {
+                    timerEl.className = "text-lg font-bold text-amber-400 font-mono animate-pulse";
+                } else if (secondsElapsed >= 240) {
+                    timerEl.className = "text-lg font-bold text-rose-500 font-mono animate-pulse";
+                } else {
+                    timerEl.className = "text-lg font-bold text-amber-400 font-mono";
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            secondsElapsed = 0;
+            document.getElementById('teleprompter-timer').innerText = "00:00";
+        }
+
+        // ================= GEMINI AI + CONVERSATIONAL PEDAGOGICAL ENGINE =================
+
+        function getStudentCurrentStateContext() {
+            const topic = document.getElementById('speech-topic')?.value || '(Not chosen yet)';
+            const notes = document.getElementById('brainstorm-notes')?.value || '';
+            const hook = document.getElementById('hook-text')?.value || '';
+            const arg1 = document.getElementById('arg1-text')?.value || '';
+            const arg2 = document.getElementById('arg2-text')?.value || '';
+            const arg3 = document.getElementById('arg3-text')?.value || '';
+            const conclusion = document.getElementById('conclusion-text')?.value || '';
+            const fullText = `${hook} ${arg1} ${arg2} ${arg3} ${conclusion}`.trim();
+            const words = fullText ? fullText.split(/\s+/).filter(w => w.length > 0).length : 0;
+
+            return { topic, notes, hook, arg1, arg2, arg3, conclusion, words };
+        }
+
+        function appendUserChatMessage(text) {
+            const chatBox = document.getElementById('coach-chat-box');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex items-start justify-end space-x-2 animate-fade-in';
+            msgDiv.innerHTML = `
+                <div class="bg-brand-purple text-white p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[85%] shadow-sm">
+                    ${escapeHtml(text)}
+                </div>
+                <div class="w-7 h-7 bg-purple-200 text-purple-800 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1 font-bold">${currentStudent ? currentStudent[0] : 'U'}</div>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            saveData();
+        }
+
+        function appendSparkyChatMessage(text, isLoading = false) {
+            const chatBox = document.getElementById('coach-chat-box');
+            
+            if (isLoading) {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.id = 'sparky-loading';
+                loadingDiv.className = 'flex items-start space-x-2 animate-fade-in';
+                loadingDiv.innerHTML = `
+                    <div class="w-7 h-7 bg-amber-400 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1 shadow-sm">🐶</div>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200 text-xs text-slate-500 shadow-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-notch fa-spin text-brand-purple"></i>
+                        <span>Sparky is thinking...</span>
+                    </div>
+                `;
+                chatBox.appendChild(loadingDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                return;
+            }
+
+            const loader = document.getElementById('sparky-loading');
+            if (loader) loader.remove();
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex items-start space-x-2 animate-fade-in';
+            msgDiv.innerHTML = `
+                <div class="w-7 h-7 bg-amber-400 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1 shadow-sm">🐶</div>
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200 text-xs leading-relaxed text-slate-800 shadow-sm space-y-1 max-w-[85%]">
+                    ${text}
+                </div>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            saveData();
+        }
+
+        function clearChatHistory() {
+            chatConversationHistory = [];
+            const chatBox = document.getElementById('coach-chat-box');
+            chatBox.innerHTML = `
+                <div class="flex items-start space-x-2">
+                    <div class="w-7 h-7 bg-amber-400 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-1">🐶</div>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200 text-xs leading-relaxed text-slate-700 shadow-sm space-y-2">
+                        <p class="font-bold text-slate-900">Chat reset! 🐾</p>
+                        <p>What would you like to brainstorm or practice next, ${currentStudent || 'champion'}?</p>
+                    </div>
+                </div>
+            `;
+            saveData();
+        }
+
+        // Context Engine
+        function generatePedagogicalResponse(userQuery) {
+            const state = getStudentCurrentStateContext();
+            const q = userQuery.toLowerCase().trim();
+            const topic = state.topic !== '(Not chosen yet)' ? state.topic : 'your topic';
+
+            const pastConversationText = chatConversationHistory.map(turn => {
+                return turn.parts.map(p => p.text).join(' ');
+            }).join(' ').toLowerCase();
+
+            // Topic research / questions / angles
+            if (q.includes('research questions') || q.includes('angles') || q.includes('ideas for my speech topic') || q.includes('chose the topic')) {
+                if (topic.toLowerCase().includes('people of story')) {
+                    return `<strong>Awesome choice with "People of story", ${currentStudent || 'champion'}! 📚✨</strong><br><br>Here are 2 exciting research angles and questions to explore:<br><br>1️⃣ <strong>The First Storytellers:</strong> <em>How did First Nations Australians pass down thousands of years of history, culture, and wisdom through oral storytelling and Songlines?</em><br><br>2️⃣ <strong>Stories That Change History:</strong> <em>How can one person's story (like Eddie Koiki Mabo or Vincent Lingiari) inspire millions and change laws?</em><br><br>💡 <em>Tip: You can base your 3 PEEL body arguments on 3 different inspiring storytellers! Would you like help writing a Sizzling Start for this?</em>`;
+                } else if (topic.toLowerCase().includes('silence')) {
+                    return `<strong>Great topic choice, ${currentStudent || 'champion'}! 🤫</strong><br><br>Here are 2 powerful angles to explore:<br><br>1️⃣ <strong>Actions Speak Loudest:</strong> <em>How can quiet acts of courage or kindness show more character than loud words?</em><br><br>2️⃣ <strong>The Power of Listening:</strong> <em>Why is listening in silence often the most important part of solving conflicts?</em>`;
+                } else if (topic.toLowerCase().includes('plastic')) {
+                    return `<strong>An important topic for our planet! 🌊</strong><br><br>Here are 2 great research angles:<br><br>1️⃣ <strong>Young Eco-Innovators:</strong> <em>What clever alternatives to plastic (like seaweed packaging) are scientists inventing?</em><br><br>2️⃣ <strong>A Day Without Plastic:</strong> <em>What would your school day look like if single-use plastic disappeared overnight?</em>`;
+                } else {
+                    return `<strong>Great choice for your topic: "${escapeHtml(topic)}", ${currentStudent || 'champion'}! 💡</strong><br><br>Here are 2 exciting research angles to think about:<br><br>1️⃣ <strong>The Big Question:</strong> <em>Why does this topic matter to Year 5 students and our community today?</em><br><br>2️⃣ <strong>Real-Life Inspiration:</strong> <em>What is an unforgettable real-life story or example that proves your point?</em><br><br><em>Would you like help starting your introduction?</em>`;
+                }
+            }
+
+            // Draft Reviews
+            if (q.includes('review my draft') || q.includes('please review') || q.includes('feedback on')) {
+                if (q.includes('introduction') || q.includes('hook') || q.includes('formal address')) {
+                    const hookText = state.hook;
+                    if (hookText && hookText.length > 5 && !hookText.includes('*(Formal Address')) {
+                        const hasAddress = /chairperson|chair|adjudicator/i.test(hookText);
+                        const hasHook = /\?|did you know|imagine|picture|what if|bang|think/i.test(hookText);
+
+                        let feedback = `<strong>Great job drafting your Introduction, ${currentStudent || 'Champion'}! 👏</strong><br><br>`;
+                        
+                        if (hasAddress) {
+                            feedback += `✅ <strong>Formal Address:</strong> Spot on! You included the official greeting to the Chairperson and adjudicators.<br>`;
+                        } else {
+                            feedback += `⚠️ <strong>Formal Address:</strong> Don't forget the competition rule! Make sure you start with <em>"Mr/Madam Chairperson, adjudicators, teachers, and fellow Year 5 students."</em><br>`;
+                        }
+
+                        if (hasHook) {
+                            feedback += `🔥 <strong>Catchy Hook:</strong> Your opening question/hook is super engaging and gets the audience thinking right away!<br>`;
+                        } else {
+                            feedback += `💡 <strong>Hook Tip:</strong> Add a big question right after your greeting to hook the audience.<br>`;
+                        }
+
+                        feedback += `<br><strong>To make it 10/10 persuasive:</strong><br>`;
+                        feedback += `• Add a quick 1-sentence teaser hinting at the specific stories or heroes (like First Nations change-makers) you'll talk about in your body arguments!<br>`;
+                        feedback += `• Use strong power words like <em>remarkable</em>, <em>unforgettable</em>, or <em>transform</em>.<br><br>`;
+                        feedback += `<em>Ready to move on to Step 3 and write your 3 PEEL Body Arguments?</em>`;
+
+                        return feedback;
+                    }
+                }
+
+                if (q.includes('arguments') || q.includes('peel') || q.includes('body')) {
+                    const argsCount = [state.arg1, state.arg2, state.arg3].filter(a => a && a.trim().length > 5).length;
+                    let feedback = `<strong>Reviewing your Body Arguments (PEEL)! 🧱</strong><br><br>`;
+                    feedback += `You have drafted <strong>${argsCount} of 3</strong> main arguments.<br><br>`;
+                    feedback += `• <strong>Strengths:</strong> Clear points connected to your topic!<br>`;
+                    feedback += `• <strong>Enhancement Tip:</strong> Make sure each paragraph includes a real-life <strong>Example</strong> or story (the 'E' in PEEL) as proof!<br><br>`;
+                    feedback += `<em>Would you like help writing Argument #${argsCount < 3 ? argsCount + 1 : 3}?</em>`;
+                    return feedback;
+                }
+
+                if (q.includes('conclusion')) {
+                    const concText = state.conclusion;
+                    let feedback = `<strong>Reviewing your Conclusion! 🏆</strong><br><br>`;
+                    if (concText.toLowerCase().includes('in conclusion') || concText.toLowerCase().includes('summary') || concText.toLowerCase().includes('to wrap up')) {
+                        feedback += `✅ <strong>End Signal:</strong> Great job using a clear closing signal!<br>`;
+                    }
+                    if (concText.toLowerCase().includes('thank you')) {
+                        feedback += `✅ <strong>Polite Finish:</strong> Checked! Included "Thank you."<br>`;
+                    } else {
+                        feedback += `⚠️ <strong>Polite Finish:</strong> Don't forget to end politely with <em>"Thank you!"</em><br>`;
+                    }
+                    feedback += `<br><em>Make sure your final sentence is a memorable "mic drop" statement!</em>`;
+                    return feedback;
+                }
+            }
+
+            // Sizzling Start
+            if (q.includes('sizzling') || q.includes('hook') || q.includes('start') || q.includes('intro') || q.includes('opener') || q.includes('attention')) {
+                let sizzlingExamples = '';
+                if (pastConversationText.includes('mabo') || pastConversationText.includes('activist') || pastConversationText.includes('indigenous') || topic.toLowerCase().includes('people of story')) {
+                    sizzlingExamples = `
+• <strong>Option 1 (Big Question Sizzling Start):</strong> <em>"What if I told you that one man's quiet story changed Australian law forever?"</em><br>
+• <strong>Option 2 (Action / Sound Effect Sizzling Start):</strong> <em>"Bang! The High Court of Australia made history, and Eddie Mabo's voice echoes across our nation today."</em><br>
+• <strong>Option 3 (Quote Sizzling Start):</strong> <em>"’We are people of story.’ Long before textbooks were written, First Nations leaders passed truth down through voices."</em>
+`;
+                } else if (topic.toLowerCase().includes('plastic')) {
+                    sizzlingExamples = `
+• <strong>Option 1 (Shocking Fact Sizzling Start):</strong> <em>"8 million tonnes. That is how much plastic enters our oceans every single year."</em><br>
+• <strong>Option 2 (Imagine Scenario Sizzling Start):</strong> <em>"Imagine diving into a crystal clear ocean, only to find plastic bags instead of fish."</em>
+`;
+                } else {
+                    sizzlingExamples = `
+• <strong>Option 1 (Rhetorical Question):</strong> <em>"Have you ever heard an idea so powerful it changed the way you see the world?"</em><br>
+• <strong>Option 2 (Imagine Scenario):</strong> <em>"Picture this: You are standing in front of a crowd, ready to share something that really matters."</em>
+`;
+                }
+
+                return `<strong>YES! A Sizzling Start is the absolute best way to grab your audience right away! 🔥🥓</strong><br><br>Don't forget the official 2026 rule: start with your formal address, then drop your Sizzling Start immediately after:<br><br><em>"Mr Chairperson, adjudicators, teachers, and fellow Year 5 students..."</em><br><br>Here are Sizzling Start ideas tailored for <strong>"${escapeHtml(topic)}"</strong>:<br>${sizzlingExamples}<br><em>Which Sizzling Start sizzles most for you? Try putting it into Step 2!</em>`;
+            }
+
+            // Doing all three
+            if (q.includes('all three') || q.includes('all 3') || q.includes('can i do all') || q.includes('do all') || q.includes('both') || q.includes('multiple')) {
+                if (pastConversationText.includes('mabo') || pastConversationText.includes('activist') || pastConversationText.includes('indigenous') || topic.toLowerCase().includes('people of story')) {
+                    return `<strong>YES, ABSOLUTELY! 🌟</strong><br><br>Using all three figures is actually a brilliant way to structure your 3-4 minute speech! You can make each activist one of your 3 PEEL Body Arguments:<br><br>• <strong>Argument 1 (Eddie Koiki Mabo):</strong> Fighting for land rights and recognition of Country.<br>• <strong>Argument 2 (Vincent Lingiari):</strong> Standing together peacefully at Wave Hill to show the power of perseverance.<br>• <strong>Argument 3 (Faith Bandler or Charles Perkins):</strong> Uniting people across Australia to vote YES in the 1967 Referendum.<br><br><em>By combining all three, your speech shows how different people's stories together changed our nation! Would you like help writing a Sizzling Start for this?</em>`;
+                }
+                return `<strong>Yes, definitely! 🌟</strong><br><br>Using 3 distinct points or examples is actually the ideal structure for a Year 5 speech! In public speaking, this is called the <strong>Rule of Three</strong>.<br><br>You can make point #1 your first argument, point #2 your second, and point #3 your third argument using PEEL.<br><br><em>Would you like to start drafting Argument #1 now?</em>`;
+            }
+
+            // General Fallback
+            return `That's a fantastic idea for your speech on <strong>"${escapeHtml(topic)}"</strong>, ${currentStudent || 'champion'}! 🐾<br><br>To make this stand out to the adjudicators:<br>• Connect this idea directly to real-life lessons for Year 5 kids.<br>• Use persuasive words like <em>must</em>, <em>vital</em>, or <em>together</em>.<br>• Practice saying it out loud with strong voice expression!<br><br><em>What section would you like to work on next?</em>`;
+        }
+
+        async function sendInteractiveMessageToSparky(userQuery) {
+            appendUserChatMessage(userQuery);
+            appendSparkyChatMessage('', true);
+
+            const state = getStudentCurrentStateContext();
+            const stateContextStr = `
+Current Student State:
+- Student Name: "${currentStudent || 'Year 5 Student'}"
+- Topic: "${state.topic}"
+- Brainstorm Notes: "${state.notes}"
+- Hook & Address: "${state.hook}"
+- Argument 1: "${state.arg1}"
+- Argument 2: "${state.arg2}"
+- Argument 3: "${state.arg3}"
+- Conclusion: "${state.conclusion}"
+- Total Words: ${state.words} (Target: 375-500 words for 3-4 mins)
+`;
+
+            const systemInstruction = `
+You are Coach Sparky, an enthusiastic 2026 Diocesan Public Speaking AI writing coach for Year 5 students (10-11 years old).
+Address the student by their name "${currentStudent || 'champion'}".
+COMPETITION RULES:
+- Catholic Education Diocese of Wollongong Competition 2026.
+- Year 5 speech length: 3 to 4 minutes (approx 375 to 500 words).
+- MUST address Chairperson ("Mr Chairperson..." or "Madam Chairperson...") and audience.
+- Criteria: Structure & Content + Presence & Delivery.
+
+CRITICAL DRAFT REVIEW RULE:
+When reviewing user's written draft:
+1. READ AND EVALUATE THEIR EXACT WRITTEN TEXT!
+2. Praise specific elements (formal address, rhetorical question, vocabulary).
+3. Suggest 1-2 concrete enhancements. Do NOT use generic templates!
+4. Keep response under 120 words.
+
+${stateContextStr}
+`;
+
+            // Clean up any malformed/old history entries before sending.
+            const safeHistory = (Array.isArray(chatConversationHistory) ? chatConversationHistory : [])
+                .filter(turn => turn && (turn.role === 'user' || turn.role === 'model') && Array.isArray(turn.parts))
+                .map(turn => ({
+                    role: turn.role,
+                    parts: turn.parts
+                        .filter(part => part && typeof part.text === 'string')
+                        .map(part => ({ text: part.text }))
+                }))
+                .filter(turn => turn.parts.length > 0);
+
+            const currentTurn = {
+                role: 'user',
+                parts: [{ text: userQuery }]
+            };
+
+            let replyHtml = null;
+            let replyPlainText = null;
+
+            try {
+                // Ask our Vercel serverless function. The Gemini API key stays on the server.
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+                const response = await fetch('/api/sparky', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [...safeHistory, currentTurn],
+                        systemInstruction
+                    }),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    const errorBody = await response.text().catch(() => '');
+                    throw new Error(`Sparky API returned ${response.status}: ${errorBody}`);
+                }
+
+                const data = await response.json();
+                if (!data?.text || !data.text.trim()) {
+                    throw new Error('Sparky API returned an empty response.');
+                }
+
+                replyPlainText = data.text.trim();
+                replyHtml = replyPlainText
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\n\n/g, '<br><br>')
+                    .replace(/\n- /g, '<br>• ');
+
+            } catch (err) {
+                console.warn('Live Sparky unavailable; using built-in coach instead.', err);
+
+                // Always give students an answer even if Gemini/network/Vercel is unavailable.
+                try {
+                    replyHtml = generatePedagogicalResponse(userQuery);
+                    replyPlainText = replyHtml.replace(/<[^>]*>/g, '');
+                } catch (fallbackErr) {
+                    console.error('Sparky fallback also failed:', fallbackErr);
+                    replyHtml = `<strong>Oops — Sparky had a little tech hiccup! 🐶</strong><br><br>Try pressing <strong>Reset Chat</strong> and asking again. Your speech work is still saved.`;
+                    replyPlainText = 'Sparky had a technical hiccup. Try Reset Chat and ask again.';
+                }
+            } finally {
+                // Never leave the thinking bubble stuck on screen.
+                const loader = document.getElementById('sparky-loading');
+                if (loader) loader.remove();
+            }
+
+            chatConversationHistory = [...safeHistory, currentTurn, {
+                role: 'model',
+                parts: [{ text: replyPlainText || '' }]
+            }];
+
+            appendSparkyChatMessage(replyHtml || '🐶 Sparky is ready — please try again.');
+        }
+
+        function handleUserChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('user-chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+            input.value = '';
+            sendInteractiveMessageToSparky(message);
+        }
+
+        function sendQuickChatMessage(text) {
+            sendInteractiveMessageToSparky(text);
+        }
+
+        function askCoachForBrainstorm() {
+            const topic = document.getElementById('speech-topic').value || 'my topic';
+            sendInteractiveMessageToSparky(`Can you help me brainstorm research ideas and interesting angles for my speech topic: "${topic}"?`);
+        }
+
+        function askCoachFeedback(section) {
+            let sectionName = '';
+            let sectionText = '';
+
+            if (section === 'hook') {
+                sectionName = 'Introduction & Formal Address';
+                sectionText = document.getElementById('hook-text').value.trim();
+            } else if (section === 'body') {
+                sectionName = 'Main Arguments (PEEL)';
+                const a1 = document.getElementById('arg1-text').value.trim();
+                const a2 = document.getElementById('arg2-text').value.trim();
+                const a3 = document.getElementById('arg3-text').value.trim();
+                const points = [];
+                if (a1) points.push(`Argument 1: "${a1}"`);
+                if (a2) points.push(`Argument 2: "${a2}"`);
+                if (a3) points.push(`Argument 3: "${a3}"`);
+                sectionText = points.join('\n');
+            } else if (section === 'conclusion') {
+                sectionName = 'Conclusion';
+                sectionText = document.getElementById('conclusion-text').value.trim();
+            }
+
+            if (!sectionText || sectionText.length < 5) {
+                sendInteractiveMessageToSparky(`Can you give me tips on how to write my ${sectionName}? I haven't written it yet.`);
+                return;
+            }
+
+            sendInteractiveMessageToSparky(`Please review my draft for ${sectionName}:\n\n"${sectionText}"\n\nWhat did I do well, and how can I enhance it?`);
+        }
+    </script>
+</body>
+</html>

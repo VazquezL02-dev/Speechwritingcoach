@@ -1,0 +1,16 @@
+SPARKY - GITHUB / VERCEL SETUP
+
+Upload the CONTENTS of this folder to your existing GitHub project.
+
+Files:
+- index.html
+- api/sparky.js
+
+IMPORTANT:
+In Vercel, add this Environment Variable:
+Name: GEMINI_API_KEY
+Value: your Gemini API key
+
+Then redeploy the project.
+
+You do NOT need to run new Supabase SQL for this Sparky fix.
