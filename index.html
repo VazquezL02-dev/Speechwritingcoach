@@ -1125,6 +1125,33 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
                 return turn.parts.map(p => p.text).join(' ');
             }).join(' ').toLowerCase();
 
+            // Direct "who should I include / talk about?" guidance
+            const askingWho =
+                q.includes('who should') ||
+                q.includes('who can') ||
+                q.includes('who could') ||
+                q.includes('who do i') ||
+                q.includes('who to') ||
+                q.includes('people should') ||
+                q.includes('people can') ||
+                q.includes('people could') ||
+                q.includes('include in my speech') ||
+                q.includes('talk about') ||
+                q.includes('names') ||
+                q.includes('examples of people');
+
+            if (askingWho && topic.toLowerCase().includes('people of story')) {
+                return `<strong>Great question, ${currentStudent || 'champion'} — you need actual people to choose from! 👏</strong><br><br>
+Here are some strong Australian options:<br>
+• <strong>Eddie Koiki Mabo</strong> — his story connects to justice, Country and changing Australian law.<br>
+• <strong>Vincent Lingiari</strong> — a powerful story of courage, persistence and land rights.<br>
+• <strong>Faith Bandler</strong> — showed how one determined person can help create national change.<br>
+• <strong>Charles Perkins</strong> — stood up against racism and pushed Australians to notice inequality.<br>
+• <strong>St Mary MacKillop</strong> — a story of faith, resilience and helping children through education.<br><br>
+💡 <strong>My tip:</strong> choose <strong>3 people linked by one big idea</strong>. For example: <em>“People whose courage changed Australia.”</em><br><br>
+<em>Would you rather focus on <strong>justice</strong>, <strong>courage</strong>, or <strong>faith</strong>?</em>`;
+            }
+
             // Topic research / questions / angles
             if (q.includes('research questions') || q.includes('angles') || q.includes('ideas for my speech topic') || q.includes('chose the topic')) {
                 if (topic.toLowerCase().includes('people of story')) {
@@ -1227,8 +1254,26 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
                 return `<strong>Yes, definitely! 🌟</strong><br><br>Using 3 distinct points or examples is actually the ideal structure for a Year 5 speech! In public speaking, this is called the <strong>Rule of Three</strong>.<br><br>You can make point #1 your first argument, point #2 your second, and point #3 your third argument using PEEL.<br><br><em>Would you like to start drafting Argument #1 now?</em>`;
             }
 
-            // General Fallback
-            return `That's a fantastic idea for your speech on <strong>"${escapeHtml(topic)}"</strong>, ${currentStudent || 'champion'}! 🐾<br><br>To make this stand out to the adjudicators:<br>• Connect this idea directly to real-life lessons for Year 5 kids.<br>• Use persuasive words like <em>must</em>, <em>vital</em>, or <em>together</em>.<br>• Practice saying it out loud with strong voice expression!<br><br><em>What section would you like to work on next?</em>`;
+            // General Fallback - still give useful coaching rather than vague praise
+            if (topic.toLowerCase().includes('people of story')) {
+                return `<strong>Let’s make this specific, ${currentStudent || 'champion'}! 📚</strong><br><br>
+For <strong>"People of story"</strong>, a strong speech usually works best when you choose one message and build around it.<br><br>
+Try one of these:<br>
+• <strong>Courage:</strong> people who stood up when it was difficult.<br>
+• <strong>Justice:</strong> people whose stories helped make Australia fairer.<br>
+• <strong>Faith & service:</strong> people who helped others because of what they believed.<br>
+• <strong>Persistence:</strong> people who kept going despite setbacks.<br><br>
+Then choose 3 people who fit that same message.<br><br>
+<em>Tell me the idea you like most and I’ll help you choose the best 3 people.</em>`;
+            }
+
+            return `<strong>I can help with that, ${currentStudent || 'champion'}! 🐾</strong><br><br>
+Tell me what you are deciding right now — for example:<br>
+• what ideas to include<br>
+• which example to use<br>
+• how to start a paragraph<br>
+• whether a sentence is strong enough<br><br>
+<em>What are you stuck on?</em>`;
         }
 
         async function sendInteractiveMessageToSparky(userQuery) {
@@ -1258,12 +1303,28 @@ COMPETITION RULES:
 - MUST address Chairperson ("Mr Chairperson..." or "Madam Chairperson...") and audience.
 - Criteria: Structure & Content + Presence & Delivery.
 
-CRITICAL DRAFT REVIEW RULE:
+COACHING RULES:
+- Answer the student's actual question FIRST. Never dodge it with generic encouragement.
+- Be specific, practical and age-appropriate for Year 5.
+- When a student asks WHO, WHAT, WHICH, HOW or asks for ideas, give concrete options/examples immediately.
+- For topic choices, give 3-5 strong possibilities, explain in one short sentence why each could work, then recommend a best-fit structure.
+- Ask only ONE useful follow-up question at the end.
+- Do not simply say "connect it to real life", "use persuasive words", or "practice your expression" unless that directly answers the question.
+- Help the student make decisions rather than doing the entire speech for them.
+- Keep most responses under 140 words.
+
+PEOPLE OF STORY GUIDANCE:
+If the topic is "People of story", help students choose people whose stories communicate a clear message or changed others.
+Strong Australian examples include Eddie Koiki Mabo, Vincent Lingiari, Faith Bandler, Charles Perkins and St Mary MacKillop.
+A strong 3-point speech can use three people linked by ONE theme, e.g. courage, justice, persistence, faith, standing up for others, or changing Australia.
+If the student asks who to include, name suitable people and explain the connection. Do not give a vague generic response.
+
+DRAFT REVIEW RULE:
 When reviewing user's written draft:
-1. READ AND EVALUATE THEIR EXACT WRITTEN TEXT!
-2. Praise specific elements (formal address, rhetorical question, vocabulary).
-3. Suggest 1-2 concrete enhancements. Do NOT use generic templates!
-4. Keep response under 120 words.
+1. READ AND EVALUATE THEIR EXACT WRITTEN TEXT.
+2. Praise specific elements.
+3. Suggest 1-2 concrete improvements.
+4. Quote or refer to their own wording where useful.
 
 ${stateContextStr}
 `;

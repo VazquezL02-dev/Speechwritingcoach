@@ -1,16 +1,18 @@
-SPARKY - GITHUB / VERCEL SETUP
+SPARKY - MORE HELPFUL COACH UPDATE
 
-Upload the CONTENTS of this folder to your existing GitHub project.
-
-Files:
+Replace the existing files in your GitHub project with:
 - index.html
 - api/sparky.js
 
-IMPORTANT:
-In Vercel, add this Environment Variable:
-Name: GEMINI_API_KEY
-Value: your Gemini API key
+This update makes Sparky:
+- answer direct student questions instead of giving generic feedback
+- give specific people/examples for "People of story"
+- help students choose 3 people linked by one theme
+- give better fallback coaching if Gemini is unavailable
 
-Then redeploy the project.
+No new Supabase SQL is required.
 
-You do NOT need to run new Supabase SQL for this Sparky fix.
+Keep your Vercel environment variable:
+GEMINI_API_KEY
+
+Redeploy after uploading the files.
