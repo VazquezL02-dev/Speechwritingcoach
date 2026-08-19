@@ -625,8 +625,7 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
 
     <!-- APP JAVASCRIPT LOGIC -->
     <script>
-        // Gemini API Setup
-        // Gemini API calls are routed securely through /api/sparky.
+        // Gemini runs securely through the Vercel /api/sparky serverless function.
         let currentTab = 'brainstorm';
 
         // Official Class Lists (First Names Only)
@@ -642,6 +641,226 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             "Elyse", "Katherine", "Joy", "Syon", "Reyansh", "Oskar", "Angelina", 
             "Lyon", "Georgia", "Jimmy", "Leah", "Raymond", "Javen"
         ];
+
+        // Comprehensive Topic Guide Database for All 2026 Diocesan Competition Topics
+        const TOPIC_GUIDE_DATABASE = {
+            "silence": {
+                title: "Silence speaks louder than words",
+                emoji: "🤫",
+                angles: [
+                    "<strong>Quiet Courage & Actions:</strong> How simple acts of kindness or standing up for someone show more strength than loud words.",
+                    "<strong>The Power of Listening:</strong> Why taking time in silence to listen helps solve conflicts and build real friendships."
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> Actions reveal our true character far better than words.",
+                    "<strong>Argument 2:</strong> Silence allows us to listen deeply to others and understand their feelings.",
+                    "<strong>Argument 3:</strong> In a noisy world, quiet reflection gives us peace and wisdom."
+                ],
+                sizzlingStarts: [
+                    `"Have you ever been in a room so quiet that the silence felt louder than a shout?"`,
+                    `"What if I told you that the most powerful thing you can do when someone is upset isn't to talk, but to quietly listen?"`,
+                    `"Words are cheap, but actions are priceless."`
+                ]
+            },
+            "creatures": {
+                title: "The smallest creatures in our gardens are the most important workers",
+                emoji: "🐝",
+                angles: [
+                    "<strong>Garden Heroes:</strong> Bees, earthworms, and ants doing essential work that keeps our food growing.",
+                    "<strong>Big Impact from Small Hands:</strong> How tiny creatures remind us that Year 5 kids can also make a huge difference!"
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> Pollinators like bees and butterflies help many flowering plants reproduce and support the foods we grow.",
+                    "<strong>Argument 2:</strong> Worms and soil microbes decompose waste and keep our planet fertile.",
+                    "<strong>Argument 3:</strong> Taking care of small creatures teaches us stewardship of God's creation."
+                ],
+                sizzlingStarts: [
+                    `"Imagine opening your lunchbox and discovering that many of the foods you enjoy depend on tiny pollinators doing their job."`,
+                    `"Imagine a world with no apples, no flowers, and no chocolate—all because we forgot to protect garden workers."`,
+                    `"Who works 24 hours a day without pay or praise? The tiny creatures right under our feet!"`
+                ]
+            },
+            "twists": {
+                title: "Twists and turns",
+                emoji: "🌀",
+                angles: [
+                    "<strong>Life as a Adventure:</strong> Unexpected challenges build resilience and teach us valuable lessons.",
+                    "<strong>Famous Turning Points:</strong> Historical figures or personal stories where a surprise turn led to something amazing."
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> Unexpected twists build resilience and make us stronger when things don't go to plan.",
+                    "<strong>Argument 2:</strong> Sharp turns in life often lead to surprising discoveries and new friendships.",
+                    "<strong>Argument 3:</strong> Keeping a positive mindset turns scary twists into thrilling adventures."
+                ],
+                sizzlingStarts: [
+                    `"Life rarely moves in a straight line—it is full of sudden twists, sharp turns, and unexpected loops!"`,
+                    `"What happens when your best-laid plans suddenly take a sharp 180-degree turn into the unknown?"`,
+                    `"Hold on tight! Life isn't a straight road—it's the ultimate roller coaster."`
+                ]
+            },
+            "plastic": {
+                title: "A world without plastic",
+                emoji: "🌊",
+                angles: [
+                    "<strong>Protecting Oceans & Wildlife:</strong> Ending single-use plastic to save marine creatures and environment.",
+                    "<strong>Eco-Innovators:</strong> Clever plastic alternatives (seaweed packaging, eco-friendly tools) created by young scientists."
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> Millions of tonnes of plastic pollute oceans and harm sea life every year.",
+                    "<strong>Argument 2:</strong> Brilliant scientists are creating biodegradable materials from plants and seaweed.",
+                    "<strong>Argument 3:</strong> Small daily choices by schools and families can make single-use plastic extinct."
+                ],
+                sizzlingStarts: [
+                    `"Imagine looking across a beautiful beach and finding plastic where shells and sea life should be."`,
+                    `"Imagine diving into a crystal clear ocean, only to find plastic bags floating where sea turtles should be."`,
+                    `"What if you woke up tomorrow and plastic had vanished from the face of the Earth?"`
+                ]
+            },
+            "sunbeam": {
+                title: "\"A single sunbeam is enough to drive away many shadows\"",
+                emoji: "☀️",
+                angles: [
+                    "<strong>Light in Darkness:</strong> How a single act of kindness or encouragement lifts someone out of sadness.",
+                    "<strong>Spreading Hope:</strong> Standing up for others in the playground and bringing positivity to your community."
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> Even the smallest act of kindness can brighten someone's darkest day.",
+                    "<strong>Argument 2:</strong> Hope and optimism spread fast when one person steps up to lead.",
+                    "<strong>Argument 3:</strong> Being a 'sunbeam' means standing against bullying, loneliness, and unfairness."
+                ],
+                sizzlingStarts: [
+                    `"When you walk into a pitch-black room and strike one small match, the darkness instantly vanishes!"`,
+                    `"Have you ever noticed how a single warm smile can completely turn around someone's terrible day?"`,
+                    `"Shadows are terrifying—until a single beam of light pierces right through them."`
+                ]
+            },
+            "francis": {
+                title: "St. Francis of Assisi",
+                emoji: "🕊️",
+                angles: [
+                    "<strong>Patron Saint of Ecology:</strong> Caring for animals, plants, and God's creation (Laudato Si').",
+                    "<strong>Living Simply & Peacefully:</strong> Choosing peacemaking, generosity, and joy over wealth and pride."
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> St. Francis taught us that nature and animals are sacred gifts to be cherished.",
+                    "<strong>Argument 2:</strong> He showed true courage by choosing peace and humility over anger and wealth.",
+                    "<strong>Argument 3:</strong> His message inspires Year 5 students today to care for our common home."
+                ],
+                sizzlingStarts: [
+                    `"Imagine giving up all your money and fancy clothes just to dedicate your life to caring for nature and animals!"`,
+                    `"What would make someone walk away from wealth and choose a life of simplicity, peace and service instead?"`,
+                    `"More than 800 years ago, one man chose simplicity, peace and care for creation. Why does his example still matter today?"`
+                ]
+            },
+            "story": {
+                title: "People of story",
+                emoji: "📚",
+                angles: [
+                    "<strong>First Nations Oral Tradition:</strong> How First Nations Australians pass down truth, culture, and Country through stories.",
+                    "<strong>Change-Makers:</strong> Historical heroes like Eddie Mabo or Vincent Lingiari whose personal stories changed our nation."
+                ],
+                peel: [
+                    "<strong>Argument 1:</strong> Aboriginal and Torres Strait Islander peoples have passed knowledge, culture and connection to Country across generations through rich storytelling traditions.",
+                    "<strong>Argument 2:</strong> Courageous change-makers like Eddie Mabo used their stories to transform laws and achieve justice.",
+                    "<strong>Argument 3:</strong> Every single one of us is writing our own story through the choices we make today."
+                ],
+                sizzlingStarts: [
+                    `"What if I told you that one man's quiet story changed Australian law forever?"`,
+                    `"’We are people of story.’ Long before textbooks were printed, truth was carried across generations in human voices."`,
+                    `"Every person you pass in the corridor is carrying an unwritten book full of incredible stories."`
+                ]
+            }
+        };
+
+        // Extra coaching prompts so Sparky can answer natural Year 5 questions across ALL topics.
+        const TOPIC_COACHING_EXTRAS = {
+            silence: {
+                examples: [
+                    "a friend quietly sitting with someone who is upset",
+                    "a student standing beside someone being excluded instead of making a big speech",
+                    "athletes or leaders who let their actions prove their character"
+                ],
+                research: [
+                    "Why can listening be more powerful than speaking?",
+                    "What real examples show that actions can communicate more than words?",
+                    "How does quiet reflection help people make better decisions?"
+                ]
+            },
+            creatures: {
+                examples: [
+                    "bees and other pollinators",
+                    "earthworms and decomposers",
+                    "ants, beetles, butterflies and tiny soil organisms"
+                ],
+                research: [
+                    "Which tiny garden creatures help plants reproduce and grow food?",
+                    "How do worms and decomposers improve soil?",
+                    "What would happen to a garden if its smallest workers disappeared?"
+                ]
+            },
+            twists: {
+                examples: [
+                    "a personal setback that became a lesson",
+                    "a sporting loss, injury or mistake that led to improvement",
+                    "a famous historical turning point or unexpected discovery"
+                ],
+                research: [
+                    "How can unexpected changes build resilience?",
+                    "Which famous discovery or event happened because something did not go to plan?",
+                    "Why can mistakes sometimes lead to better outcomes?"
+                ]
+            },
+            plastic: {
+                examples: [
+                    "single-use plastics in lunchboxes and shops",
+                    "ocean pollution and harm to wildlife",
+                    "alternatives such as reusable containers, plant-based materials and seaweed packaging"
+                ],
+                research: [
+                    "Where does everyday plastic waste go after we throw it away?",
+                    "How does plastic affect marine animals and ecosystems?",
+                    "Which plastic alternatives could realistically replace common school items?"
+                ]
+            },
+            sunbeam: {
+                examples: [
+                    "one act of kindness changing someone's day",
+                    "standing up for someone who is lonely or being treated unfairly",
+                    "a person whose hope encouraged a whole community"
+                ],
+                research: [
+                    "How can one person's kindness influence other people?",
+                    "Which real-life people brought hope during difficult times?",
+                    "Why do small positive actions sometimes have a large effect?"
+                ]
+            },
+            francis: {
+                examples: [
+                    "St Francis choosing simplicity instead of wealth",
+                    "his care for creation and animals",
+                    "his commitment to peace, generosity and service"
+                ],
+                research: [
+                    "What choices made St Francis different from other people of his time?",
+                    "How does his example connect with caring for our common home today?",
+                    "What can Year 5 students learn from his ideas about peace and simplicity?"
+                ]
+            },
+            story: {
+                examples: [
+                    "Eddie Koiki Mabo — justice, Country and changing Australian law",
+                    "Vincent Lingiari — courage, persistence and land rights",
+                    "Faith Bandler — campaigning for equality and national change",
+                    "Charles Perkins — challenging racism and inequality",
+                    "St Mary MacKillop — faith, resilience and education"
+                ],
+                research: [
+                    "Whose story changed the way Australians thought or acted?",
+                    "How do First Nations oral traditions and Songlines carry knowledge across generations?",
+                    "What common theme could connect three people's stories — courage, justice, faith or persistence?"
+                ]
+            }
+        };
 
         // Active Profile State
         let currentStudent = null;
@@ -1034,6 +1253,19 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             document.getElementById('teleprompter-timer').innerText = "00:00";
         }
 
+        // Helper to detect active topic key
+        function detectTopicKey(topicString) {
+            const t = (topicString || '').toLowerCase();
+            if (t.includes('silence')) return 'silence';
+            if (t.includes('creatures') || t.includes('garden') || t.includes('smallest')) return 'creatures';
+            if (t.includes('twists') || t.includes('turns')) return 'twists';
+            if (t.includes('plastic')) return 'plastic';
+            if (t.includes('sunbeam') || t.includes('shadows')) return 'sunbeam';
+            if (t.includes('francis') || t.includes('assisi')) return 'francis';
+            if (t.includes('story') || t.includes('people of story')) return 'story';
+            return null;
+        }
+
         // ================= GEMINI AI + CONVERSATIONAL PEDAGOGICAL ENGINE =================
 
         function getStudentCurrentStateContext() {
@@ -1115,165 +1347,136 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             saveData();
         }
 
-        // Context Engine
+        // Comprehensive Local Pedagogical Engine Tailored to All 7 Topics
         function generatePedagogicalResponse(userQuery) {
             const state = getStudentCurrentStateContext();
             const q = userQuery.toLowerCase().trim();
-            const topic = state.topic !== '(Not chosen yet)' ? state.topic : 'your topic';
+            const topicKey = detectTopicKey(state.topic);
+            const topicData = topicKey ? TOPIC_GUIDE_DATABASE[topicKey] : null;
+            const extra = topicKey ? TOPIC_COACHING_EXTRAS[topicKey] : null;
+            const topicName = topicData ? topicData.title : (state.topic !== '(Not chosen yet)' ? state.topic : 'your speech topic');
+            const student = currentStudent || 'champion';
 
-            const pastConversationText = chatConversationHistory.map(turn => {
-                return turn.parts.map(p => p.text).join(' ');
-            }).join(' ').toLowerCase();
+            const asksWho = /\bwho\b|people|person|人物|include in my speech|talk about|someone/i.test(q);
+            const asksExamples = /example|examples|ideas|what could|what can|what should|give me|suggest/i.test(q);
+            const asksResearch = /research|fact|facts|find out|look up|question|questions/i.test(q);
+            const asksThreePoints = /(3|three).*(point|argument|idea)|point.*(3|three)|argument.*(3|three)|what.*arguments|my arguments|body points/i.test(q);
+            const asksMeaning = /what does.*mean|meaning|don'?t understand|do not understand|confused|explain the topic/i.test(q);
+            const asksFunny = /funny|humour|humor|joke|make it entertaining/i.test(q);
+            const asksOpinion = /is this.*good|is my idea|boring|does this work|what do you think/i.test(q);
+            const asksNext = /what.*next|what should i do next|where do i go next/i.test(q);
 
-            // Direct "who should I include / talk about?" guidance
-            const askingWho =
-                q.includes('who should') ||
-                q.includes('who can') ||
-                q.includes('who could') ||
-                q.includes('who do i') ||
-                q.includes('who to') ||
-                q.includes('people should') ||
-                q.includes('people can') ||
-                q.includes('people could') ||
-                q.includes('include in my speech') ||
-                q.includes('talk about') ||
-                q.includes('names') ||
-                q.includes('examples of people');
-
-            if (askingWho && topic.toLowerCase().includes('people of story')) {
-                return `<strong>Great question, ${currentStudent || 'champion'} — you need actual people to choose from! 👏</strong><br><br>
-Here are some strong Australian options:<br>
-• <strong>Eddie Koiki Mabo</strong> — his story connects to justice, Country and changing Australian law.<br>
-• <strong>Vincent Lingiari</strong> — a powerful story of courage, persistence and land rights.<br>
-• <strong>Faith Bandler</strong> — showed how one determined person can help create national change.<br>
-• <strong>Charles Perkins</strong> — stood up against racism and pushed Australians to notice inequality.<br>
-• <strong>St Mary MacKillop</strong> — a story of faith, resilience and helping children through education.<br><br>
-💡 <strong>My tip:</strong> choose <strong>3 people linked by one big idea</strong>. For example: <em>“People whose courage changed Australia.”</em><br><br>
-<em>Would you rather focus on <strong>justice</strong>, <strong>courage</strong>, or <strong>faith</strong>?</em>`;
+            // A student hasn't selected a topic yet.
+            if (!topicData && state.topic === '(Not chosen yet)') {
+                return `<strong>Let's choose your direction first, ${student}! 🎤</strong><br><br>Pick one of the 2026 topics on the left. Once you choose, I can help you with:<br>• different angles you could take<br>• people, examples or facts to research<br>• 3 body arguments<br>• a sizzling start<br>• feedback on your own writing<br><br><em>Which topic catches your attention most?</em>`;
             }
 
-            // Topic research / questions / angles
-            if (q.includes('research questions') || q.includes('angles') || q.includes('ideas for my speech topic') || q.includes('chose the topic')) {
-                if (topic.toLowerCase().includes('people of story')) {
-                    return `<strong>Awesome choice with "People of story", ${currentStudent || 'champion'}! 📚✨</strong><br><br>Here are 2 exciting research angles and questions to explore:<br><br>1️⃣ <strong>The First Storytellers:</strong> <em>How did First Nations Australians pass down thousands of years of history, culture, and wisdom through oral storytelling and Songlines?</em><br><br>2️⃣ <strong>Stories That Change History:</strong> <em>How can one person's story (like Eddie Koiki Mabo or Vincent Lingiari) inspire millions and change laws?</em><br><br>💡 <em>Tip: You can base your 3 PEEL body arguments on 3 different inspiring storytellers! Would you like help writing a Sizzling Start for this?</em>`;
-                } else if (topic.toLowerCase().includes('silence')) {
-                    return `<strong>Great topic choice, ${currentStudent || 'champion'}! 🤫</strong><br><br>Here are 2 powerful angles to explore:<br><br>1️⃣ <strong>Actions Speak Loudest:</strong> <em>How can quiet acts of courage or kindness show more character than loud words?</em><br><br>2️⃣ <strong>The Power of Listening:</strong> <em>Why is listening in silence often the most important part of solving conflicts?</em>`;
-                } else if (topic.toLowerCase().includes('plastic')) {
-                    return `<strong>An important topic for our planet! 🌊</strong><br><br>Here are 2 great research angles:<br><br>1️⃣ <strong>Young Eco-Innovators:</strong> <em>What clever alternatives to plastic (like seaweed packaging) are scientists inventing?</em><br><br>2️⃣ <strong>A Day Without Plastic:</strong> <em>What would your school day look like if single-use plastic disappeared overnight?</em>`;
-                } else {
-                    return `<strong>Great choice for your topic: "${escapeHtml(topic)}", ${currentStudent || 'champion'}! 💡</strong><br><br>Here are 2 exciting research angles to think about:<br><br>1️⃣ <strong>The Big Question:</strong> <em>Why does this topic matter to Year 5 students and our community today?</em><br><br>2️⃣ <strong>Real-Life Inspiration:</strong> <em>What is an unforgettable real-life story or example that proves your point?</em><br><br><em>Would you like help starting your introduction?</em>`;
+            // Explain what the topic actually means.
+            if (asksMeaning && topicData) {
+                const meaningMap = {
+                    silence: `It means that sometimes <strong>actions, listening or quiet choices can communicate more powerfully than talking</strong>. Your speech could argue that character is shown by what people do, not just what they say.`,
+                    creatures: `It means the tiny animals and organisms we often ignore can be <strong>essential to healthy gardens, food production and soil</strong>. Your job is to prove why small creatures have a huge impact.`,
+                    twists: `It is an open-ended topic about <strong>unexpected changes, setbacks, surprises or turning points</strong>. You could make it personal, historical, sporting, funny or inspirational.`,
+                    plastic: `It asks you to imagine and evaluate <strong>what life would be like without plastic</strong> — the environmental benefits, the problems we would need to solve and possible alternatives.`,
+                    sunbeam: `The quote is a metaphor. A <strong>sunbeam</strong> represents hope, kindness or courage, while <strong>shadows</strong> represent difficulty, sadness or unfairness. One positive action can make a bigger difference than we realise.`,
+                    francis: `This topic invites you to explore <strong>who St Francis was and why his values still matter</strong>, especially care for creation, peace, simplicity and service.`,
+                    story: `It can explore how <strong>people are shaped by stories and how people's stories shape communities and history</strong>. You might focus on First Nations storytelling, change-makers, family stories or the stories we create through our choices.`
+                };
+                return `<strong>In simple terms, ${student}:</strong><br><br>${meaningMap[topicKey]}<br><br><em>Would you like 3 different directions you could take this topic?</em>`;
+            }
+
+            // Natural questions asking for concrete people/examples.
+            if ((asksWho || asksExamples) && extra && !q.includes('sizzling') && !q.includes('hook') && !q.includes('peel')) {
+                if (topicKey === 'story' && asksWho) {
+                    return `<strong>Yes — here are some strong people you could choose, ${student}! 📚</strong><br><br>${extra.examples.map(x => `• ${x}`).join('<br>')}<br><br>💡 <strong>Best strategy:</strong> choose <strong>3 people linked by one theme</strong>, such as courage, justice, persistence or faith. That gives your whole speech one clear message.<br><br><em>Which theme sounds most like you?</em>`;
                 }
+
+                return `<strong>Here are some concrete examples for "${escapeHtml(topicName)}", ${student}:</strong><br><br>${extra.examples.slice(0,3).map(x => `• ${x}`).join('<br>')}<br><br>Rather than using all of them, pick the example that gives you the strongest story or evidence.<br><br><em>Which one would you actually enjoy talking about?</em>`;
             }
 
-            // Draft Reviews
-            if (q.includes('review my draft') || q.includes('please review') || q.includes('feedback on')) {
+            // Research support.
+            if ((asksResearch || q.includes('brainstorm') || q.includes('angles') || q.includes('chose the topic')) && topicData) {
+                const questions = extra?.research || [];
+                return `<strong>Here are some useful things to research for "${topicData.title}" ${topicData.emoji}</strong><br><br>${questions.map((x,i) => `${i+1}️⃣ ${x}`).join('<br><br>')}<br><br>💡 <strong>Research tip:</strong> find one reliable fact or real example for each main argument — you do not need dozens of facts.<br><br><em>Which question do you want to investigate first?</em>`;
+            }
+
+            // Three body arguments.
+            if (asksThreePoints && topicData) {
+                return `<strong>You could build your speech around these 3 body ideas, ${student}:</strong><br><br>${topicData.peel.map(x => `• ${x}`).join('<br><br>')}<br><br>These are <strong>starting points</strong>, not sentences you have to copy. Put each idea into your own words and add a real example or story.<br><br><em>Which argument feels strongest to you?</em>`;
+            }
+
+            // Draft review – check actual student writing rather than generic praise.
+            if (q.includes('review my draft') || q.includes('please review') || q.includes('feedback on') || q.includes('check my')) {
                 if (q.includes('introduction') || q.includes('hook') || q.includes('formal address')) {
                     const hookText = state.hook;
-                    if (hookText && hookText.length > 5 && !hookText.includes('*(Formal Address')) {
-                        const hasAddress = /chairperson|chair|adjudicator/i.test(hookText);
-                        const hasHook = /\?|did you know|imagine|picture|what if|bang|think/i.test(hookText);
-
-                        let feedback = `<strong>Great job drafting your Introduction, ${currentStudent || 'Champion'}! 👏</strong><br><br>`;
-                        
-                        if (hasAddress) {
-                            feedback += `✅ <strong>Formal Address:</strong> Spot on! You included the official greeting to the Chairperson and adjudicators.<br>`;
-                        } else {
-                            feedback += `⚠️ <strong>Formal Address:</strong> Don't forget the competition rule! Make sure you start with <em>"Mr/Madam Chairperson, adjudicators, teachers, and fellow Year 5 students."</em><br>`;
-                        }
-
-                        if (hasHook) {
-                            feedback += `🔥 <strong>Catchy Hook:</strong> Your opening question/hook is super engaging and gets the audience thinking right away!<br>`;
-                        } else {
-                            feedback += `💡 <strong>Hook Tip:</strong> Add a big question right after your greeting to hook the audience.<br>`;
-                        }
-
-                        feedback += `<br><strong>To make it 10/10 persuasive:</strong><br>`;
-                        feedback += `• Add a quick 1-sentence teaser hinting at the specific stories or heroes (like First Nations change-makers) you'll talk about in your body arguments!<br>`;
-                        feedback += `• Use strong power words like <em>remarkable</em>, <em>unforgettable</em>, or <em>transform</em>.<br><br>`;
-                        feedback += `<em>Ready to move on to Step 3 and write your 3 PEEL Body Arguments?</em>`;
-
-                        return feedback;
+                    if (!hookText || hookText.trim().length < 5) {
+                        return `<strong>You haven't written your introduction yet, ${student}.</strong><br><br>Start with the formal address, then choose a hook style: a surprising fact, rhetorical question, short story or imagine scenario.<br><br><em>Would you like 3 hook ideas for your topic?</em>`;
                     }
+                    const hasAddress = /chairperson|chair|adjudicator/i.test(hookText);
+                    const hasHook = /\?|did you know|imagine|picture|what if|suppose|have you ever/i.test(hookText);
+                    return `<strong>I'm looking at your actual introduction, ${student}. 👀</strong><br><br>${hasAddress ? '✅ You have included a formal address.' : '⚠️ Add the required address to the Chairperson and audience.'}<br>${hasHook ? '✅ Your opening has a clear attention-grabber.' : '💡 Your next improvement is a stronger hook — a question, surprising fact, mini-story or imagine scenario.'}<br><br><strong>One thing to check:</strong> does your final introduction sentence clearly tell the audience what your speech will explore?<br><br><em>Make that one change, then ask me to check it again.</em>`;
                 }
 
                 if (q.includes('arguments') || q.includes('peel') || q.includes('body')) {
-                    const argsCount = [state.arg1, state.arg2, state.arg3].filter(a => a && a.trim().length > 5).length;
-                    let feedback = `<strong>Reviewing your Body Arguments (PEEL)! 🧱</strong><br><br>`;
-                    feedback += `You have drafted <strong>${argsCount} of 3</strong> main arguments.<br><br>`;
-                    feedback += `• <strong>Strengths:</strong> Clear points connected to your topic!<br>`;
-                    feedback += `• <strong>Enhancement Tip:</strong> Make sure each paragraph includes a real-life <strong>Example</strong> or story (the 'E' in PEEL) as proof!<br><br>`;
-                    feedback += `<em>Would you like help writing Argument #${argsCount < 3 ? argsCount + 1 : 3}?</em>`;
-                    return feedback;
+                    const args = [state.arg1, state.arg2, state.arg3];
+                    const filled = args.filter(a => a && a.trim().length > 5);
+                    const weakExample = filled.find(a => !/for example|for instance|such as|according|research|because|when|this happened|one example/i.test(a));
+                    return `<strong>You've drafted ${filled.length} of 3 body arguments, ${student}. 🧱</strong><br><br>${filled.length ? '✅ You have ideas on the page — now make sure each paragraph proves its point.' : 'Start with one clear Point sentence before worrying about the whole paragraph.'}<br>${weakExample ? '💡 At least one paragraph looks like it may need a stronger real example, fact or mini-story.' : filled.length ? '✅ Your paragraphs appear to include supporting detail or examples.' : ''}<br><br><strong>PEEL check:</strong> Point → Explain → Evidence/Example → Link back to the topic.<br><br><em>Paste or write the argument you are least sure about and I’ll focus on that one.</em>`;
                 }
 
                 if (q.includes('conclusion')) {
-                    const concText = state.conclusion;
-                    let feedback = `<strong>Reviewing your Conclusion! 🏆</strong><br><br>`;
-                    if (concText.toLowerCase().includes('in conclusion') || concText.toLowerCase().includes('summary') || concText.toLowerCase().includes('to wrap up')) {
-                        feedback += `✅ <strong>End Signal:</strong> Great job using a clear closing signal!<br>`;
-                    }
-                    if (concText.toLowerCase().includes('thank you')) {
-                        feedback += `✅ <strong>Polite Finish:</strong> Checked! Included "Thank you."<br>`;
-                    } else {
-                        feedback += `⚠️ <strong>Polite Finish:</strong> Don't forget to end politely with <em>"Thank you!"</em><br>`;
-                    }
-                    feedback += `<br><em>Make sure your final sentence is a memorable "mic drop" statement!</em>`;
-                    return feedback;
+                    const c = state.conclusion || '';
+                    const hasThanks = /thank you/i.test(c);
+                    const hasReturn = topicKey && c.toLowerCase().includes(topicData.title.toLowerCase().split(' ')[0]);
+                    return `<strong>Conclusion check, ${student}! 🏆</strong><br><br>${c.trim().length < 5 ? 'You have not written it yet.' : '✅ You have a conclusion drafted.'}<br>${hasThanks ? '✅ You remembered a polite final “Thank you”.' : '💡 Remember to finish with “Thank you”.'}<br>${hasReturn ? '✅ You appear to reconnect to the topic.' : '💡 Try echoing your main message or hook so the ending feels connected to the beginning.'}<br><br><strong>Avoid:</strong> introducing a completely new argument in the conclusion.<br><br><em>Can your final sentence leave the audience with one strong thought?</em>`;
                 }
             }
 
-            // Sizzling Start
+            // Sizzling starts tailored to topic.
             if (q.includes('sizzling') || q.includes('hook') || q.includes('start') || q.includes('intro') || q.includes('opener') || q.includes('attention')) {
-                let sizzlingExamples = '';
-                if (pastConversationText.includes('mabo') || pastConversationText.includes('activist') || pastConversationText.includes('indigenous') || topic.toLowerCase().includes('people of story')) {
-                    sizzlingExamples = `
-• <strong>Option 1 (Big Question Sizzling Start):</strong> <em>"What if I told you that one man's quiet story changed Australian law forever?"</em><br>
-• <strong>Option 2 (Action / Sound Effect Sizzling Start):</strong> <em>"Bang! The High Court of Australia made history, and Eddie Mabo's voice echoes across our nation today."</em><br>
-• <strong>Option 3 (Quote Sizzling Start):</strong> <em>"’We are people of story.’ Long before textbooks were written, First Nations leaders passed truth down through voices."</em>
-`;
-                } else if (topic.toLowerCase().includes('plastic')) {
-                    sizzlingExamples = `
-• <strong>Option 1 (Shocking Fact Sizzling Start):</strong> <em>"8 million tonnes. That is how much plastic enters our oceans every single year."</em><br>
-• <strong>Option 2 (Imagine Scenario Sizzling Start):</strong> <em>"Imagine diving into a crystal clear ocean, only to find plastic bags instead of fish."</em>
-`;
-                } else {
-                    sizzlingExamples = `
-• <strong>Option 1 (Rhetorical Question):</strong> <em>"Have you ever heard an idea so powerful it changed the way you see the world?"</em><br>
-• <strong>Option 2 (Imagine Scenario):</strong> <em>"Picture this: You are standing in front of a crowd, ready to share something that really matters."</em>
-`;
-                }
-
-                return `<strong>YES! A Sizzling Start is the absolute best way to grab your audience right away! 🔥🥓</strong><br><br>Don't forget the official 2026 rule: start with your formal address, then drop your Sizzling Start immediately after:<br><br><em>"Mr Chairperson, adjudicators, teachers, and fellow Year 5 students..."</em><br><br>Here are Sizzling Start ideas tailored for <strong>"${escapeHtml(topic)}"</strong>:<br>${sizzlingExamples}<br><em>Which Sizzling Start sizzles most for you? Try putting it into Step 2!</em>`;
+                const starts = topicData?.sizzlingStarts || [];
+                return `<strong>Here are 3 hook styles for "${escapeHtml(topicName)}", ${student}: 🔥</strong><br><br>${starts.map((s,i) => `• <strong>Option ${i+1}:</strong> ${s}`).join('<br><br>')}<br><br>Use these as inspiration rather than copying word-for-word. Your strongest hook is the one that matches the direction of <em>your</em> speech.<br><br><em>Which option sounds most like your voice?</em>`;
             }
 
-            // Doing all three
-            if (q.includes('all three') || q.includes('all 3') || q.includes('can i do all') || q.includes('do all') || q.includes('both') || q.includes('multiple')) {
-                if (pastConversationText.includes('mabo') || pastConversationText.includes('activist') || pastConversationText.includes('indigenous') || topic.toLowerCase().includes('people of story')) {
-                    return `<strong>YES, ABSOLUTELY! 🌟</strong><br><br>Using all three figures is actually a brilliant way to structure your 3-4 minute speech! You can make each activist one of your 3 PEEL Body Arguments:<br><br>• <strong>Argument 1 (Eddie Koiki Mabo):</strong> Fighting for land rights and recognition of Country.<br>• <strong>Argument 2 (Vincent Lingiari):</strong> Standing together peacefully at Wave Hill to show the power of perseverance.<br>• <strong>Argument 3 (Faith Bandler or Charles Perkins):</strong> Uniting people across Australia to vote YES in the 1967 Referendum.<br><br><em>By combining all three, your speech shows how different people's stories together changed our nation! Would you like help writing a Sizzling Start for this?</em>`;
-                }
-                return `<strong>Yes, definitely! 🌟</strong><br><br>Using 3 distinct points or examples is actually the ideal structure for a Year 5 speech! In public speaking, this is called the <strong>Rule of Three</strong>.<br><br>You can make point #1 your first argument, point #2 your second, and point #3 your third argument using PEEL.<br><br><em>Would you like to start drafting Argument #1 now?</em>`;
+            // PEEL explanation genuinely tailored to the chosen topic.
+            if (q.includes('peel example') || q.includes('peel structure') || q.includes('example of peel') || q === 'peel') {
+                const point = topicData?.peel?.[0]?.replace(/<\/?strong>/g, '') || 'Make one clear claim about your topic.';
+                const exampleByTopic = {
+                    silence: ['Explain why actions can reveal character more reliably than promises.', 'Use a real or relatable example where someone quietly helped another person.', 'Link back: this shows why silence or action can speak louder than words.'],
+                    creatures: ['Explain the job this creature performs in an ecosystem.', 'Use a researched fact about pollination, soil health or decomposition.', 'Link back: tiny creatures really are essential garden workers.'],
+                    twists: ['Explain how an unexpected change can teach resilience.', 'Tell a brief real, historical or personal example of plans changing.', 'Link back: the twist became valuable because of what was learned from it.'],
+                    plastic: ['Explain why plastic pollution creates a long-term problem.', 'Use one accurate statistic or example about plastic waste or wildlife.', 'Link back: this is why imagining alternatives to plastic matters.'],
+                    sunbeam: ['Explain how one positive action can influence more than one person.', 'Give a short real-life example of kindness, courage or hope spreading.', 'Link back to the image of one sunbeam pushing away many shadows.'],
+                    francis: ['Explain what St Francis believed or did and why it mattered.', 'Use one accurate event or teaching from his life.', 'Link his example to how people can care for creation or live peacefully today.'],
+                    story: ['Explain how a person’s story can influence a community or nation.', 'Use one accurate event from the person’s life and explain its impact.', 'Link back: this proves why people’s stories can shape history.']
+                };
+                const [explain, example, link] = exampleByTopic[topicKey] || ['Explain why your point matters.', 'Add one accurate fact, example or short story.', 'Connect the paragraph back to the topic.'];
+                return `<strong>Here is a PEEL model for your topic, ${student}: 🧱</strong><br><br>• <strong>P — Point:</strong> ${point}<br>• <strong>E — Explain:</strong> ${explain}<br>• <strong>E — Evidence/Example:</strong> ${example}<br>• <strong>L — Link:</strong> ${link}<br><br>Notice that I have given you the <strong>job of each sentence</strong>, not a paragraph to copy.<br><br><em>Want to try writing the Point sentence yourself?</em>`;
             }
 
-            // General Fallback - still give useful coaching rather than vague praise
-            if (topic.toLowerCase().includes('people of story')) {
-                return `<strong>Let’s make this specific, ${currentStudent || 'champion'}! 📚</strong><br><br>
-For <strong>"People of story"</strong>, a strong speech usually works best when you choose one message and build around it.<br><br>
-Try one of these:<br>
-• <strong>Courage:</strong> people who stood up when it was difficult.<br>
-• <strong>Justice:</strong> people whose stories helped make Australia fairer.<br>
-• <strong>Faith & service:</strong> people who helped others because of what they believed.<br>
-• <strong>Persistence:</strong> people who kept going despite setbacks.<br><br>
-Then choose 3 people who fit that same message.<br><br>
-<em>Tell me the idea you like most and I’ll help you choose the best 3 people.</em>`;
+            if (asksFunny && topicData) {
+                return `<strong>You can absolutely make it entertaining, ${student} — as long as the humour still serves your topic. 😄</strong><br><br>Try:<br>• an exaggerated “imagine this…” scenario<br>• a funny comparison your audience understands<br>• a light personal moment before moving into a serious point<br><br><strong>Avoid:</strong> jokes about a person's culture, disability, religion or something tragic.<br><br><em>Tell me the idea you want to make funny and I’ll help you shape it.</em>`;
             }
 
-            return `<strong>I can help with that, ${currentStudent || 'champion'}! 🐾</strong><br><br>
-Tell me what you are deciding right now — for example:<br>
-• what ideas to include<br>
-• which example to use<br>
-• how to start a paragraph<br>
-• whether a sentence is strong enough<br><br>
-<em>What are you stuck on?</em>`;
+            if (asksOpinion && topicData) {
+                return `<strong>I can judge the idea — but I need the actual idea, ${student}.</strong><br><br>Write it in one or two sentences. I’ll check whether it is:<br>• clearly connected to <strong>"${escapeHtml(topicName)}"</strong><br>• interesting enough for an audience<br>• specific enough to research<br>• different enough to become one of your 3 arguments<br><br><em>What is your idea?</em>`;
+            }
+
+            if (asksNext && topicData) {
+                const stages = [state.hook, state.arg1, state.arg2, state.arg3, state.conclusion];
+                if (!state.hook || state.hook.trim().length < 5) return `<strong>Your next job is your introduction, ${student}.</strong><br><br>Write the formal address and then a hook that fits your chosen angle. <em>Ask me for 3 hook ideas if you need them.</em>`;
+                const missingArg = stages.slice(1,4).findIndex(x => !x || x.trim().length < 5);
+                if (missingArg !== -1) return `<strong>Your next job is Argument ${missingArg + 1}, ${student}.</strong><br><br>Start with one clear Point sentence. Then explain it and add one real example or piece of evidence. <em>Want help choosing the point?</em>`;
+                if (!state.conclusion || state.conclusion.trim().length < 5) return `<strong>Your body is taking shape — next, write your conclusion.</strong><br><br>Return to your main message, leave the audience with one memorable thought, then say “Thank you.”`;
+                return `<strong>Your full draft is there! 🎉</strong><br><br>Your next job is rehearsal: check the 3–4 minute timing, mark where to pause, and practise eye contact and expression.`;
+            }
+
+            // Useful default rather than generic fluff.
+            if (topicData) {
+                return `<strong>I can help you make a decision about "${escapeHtml(topicName)}", ${student}. 🐶</strong><br><br>You can ask me things like:<br>• “What are 3 different directions I could take?”<br>• “Who or what could I use as an example?”<br>• “What should I research?”<br>• “What could my next argument be?”<br>• “Check the paragraph I just wrote.”<br><br><em>What are you stuck on right now?</em>`;
+            }
+
+            return `<strong>I can help, ${student}.</strong><br><br>Tell me the exact part you are stuck on and I’ll give you a specific next step rather than writing the whole speech for you.`;
         }
 
         async function sendInteractiveMessageToSparky(userQuery) {
@@ -1281,10 +1484,16 @@ Tell me what you are deciding right now — for example:<br>
             appendSparkyChatMessage('', true);
 
             const state = getStudentCurrentStateContext();
+            const topicKey = detectTopicKey(state.topic);
+            const topicData = topicKey ? TOPIC_GUIDE_DATABASE[topicKey] : null;
+            const extra = topicKey ? TOPIC_COACHING_EXTRAS[topicKey] : null;
+
             const stateContextStr = `
 Current Student State:
 - Student Name: "${currentStudent || 'Year 5 Student'}"
 - Topic: "${state.topic}"
+- Topic Preset Details: ${topicData ? JSON.stringify(topicData) : "Custom Topic"}
+- Extra Topic Examples/Research: ${extra ? JSON.stringify(extra) : "None"}
 - Brainstorm Notes: "${state.notes}"
 - Hook & Address: "${state.hook}"
 - Argument 1: "${state.arg1}"
@@ -1295,41 +1504,40 @@ Current Student State:
 `;
 
             const systemInstruction = `
-You are Coach Sparky, an enthusiastic 2026 Diocesan Public Speaking AI writing coach for Year 5 students (10-11 years old).
-Address the student by their name "${currentStudent || 'champion'}".
-COMPETITION RULES:
-- Catholic Education Diocese of Wollongong Competition 2026.
-- Year 5 speech length: 3 to 4 minutes (approx 375 to 500 words).
-- MUST address Chairperson ("Mr Chairperson..." or "Madam Chairperson...") and audience.
-- Criteria: Structure & Content + Presence & Delivery.
+You are Coach Sparky, an enthusiastic but genuinely useful public-speaking coach for Year 5 students aged 10-11.
+Address the student warmly by name: "${currentStudent || 'champion'}".
 
-COACHING RULES:
-- Answer the student's actual question FIRST. Never dodge it with generic encouragement.
-- Be specific, practical and age-appropriate for Year 5.
-- When a student asks WHO, WHAT, WHICH, HOW or asks for ideas, give concrete options/examples immediately.
-- For topic choices, give 3-5 strong possibilities, explain in one short sentence why each could work, then recommend a best-fit structure.
-- Ask only ONE useful follow-up question at the end.
-- Do not simply say "connect it to real life", "use persuasive words", or "practice your expression" unless that directly answers the question.
-- Help the student make decisions rather than doing the entire speech for them.
-- Keep most responses under 140 words.
+2026 YEAR 5 TOPICS:
+1. Silence speaks louder than words
+2. The smallest creatures in our gardens are the most important workers
+3. Twists and turns
+4. A world without plastic
+5. "A single sunbeam is enough to drive away many shadows"
+6. St. Francis of Assisi
+7. People of story
 
-PEOPLE OF STORY GUIDANCE:
-If the topic is "People of story", help students choose people whose stories communicate a clear message or changed others.
-Strong Australian examples include Eddie Koiki Mabo, Vincent Lingiari, Faith Bandler, Charles Perkins and St Mary MacKillop.
-A strong 3-point speech can use three people linked by ONE theme, e.g. courage, justice, persistence, faith, standing up for others, or changing Australia.
-If the student asks who to include, name suitable people and explain the connection. Do not give a vague generic response.
+COMPETITION REQUIREMENTS:
+- Target length: 3-4 minutes (roughly 375-500 words, but actual spoken timing matters most).
+- The introduction must address the Chairperson and audience.
+- Judging considers Structure & Content and Presence & Delivery.
 
-DRAFT REVIEW RULE:
-When reviewing user's written draft:
-1. READ AND EVALUATE THEIR EXACT WRITTEN TEXT.
-2. Praise specific elements.
-3. Suggest 1-2 concrete improvements.
-4. Quote or refer to their own wording where useful.
+HOW TO COACH:
+- ANSWER THE STUDENT'S ACTUAL QUESTION FIRST. Never dodge it with generic praise.
+- If they ask WHO, WHAT, WHICH, HOW, for examples, or what to research, give concrete topic-specific options immediately.
+- If they ask for ideas, offer 3-5 distinct choices and briefly explain each.
+- If they ask "what next?", inspect their saved draft and tell them the next unfinished step.
+- When reviewing writing, comment on THEIR EXACT DRAFT, not a generic template.
+- Ask one useful follow-up question at the end.
+- Be encouraging, but do not praise something you have not actually seen.
+- Help the student think and make choices. Do not write an entire 3-4 minute speech for them.
+- You MAY provide sentence starters, a sample sentence, a short hook, research questions, or a PEEL model when asked.
+- Keep most replies between 70 and 150 words and use clear Year 5-friendly bullets.
+- Do not invent statistics, quotations, historical facts or sources. If a precise fact is needed and you are not certain, tell the student what to research rather than making it up.
+- For First Nations topics, use respectful terminology and avoid treating Aboriginal and Torres Strait Islander cultures as one single culture.
 
 ${stateContextStr}
 `;
 
-            // Clean up any malformed/old history entries before sending.
             const safeHistory = (Array.isArray(chatConversationHistory) ? chatConversationHistory : [])
                 .filter(turn => turn && (turn.role === 'user' || turn.role === 'model') && Array.isArray(turn.parts))
                 .map(turn => ({
@@ -1338,18 +1546,14 @@ ${stateContextStr}
                         .filter(part => part && typeof part.text === 'string')
                         .map(part => ({ text: part.text }))
                 }))
-                .filter(turn => turn.parts.length > 0);
+                .filter(turn => turn.parts.length > 0)
+                .slice(-10);
 
-            const currentTurn = {
-                role: 'user',
-                parts: [{ text: userQuery }]
-            };
-
+            const currentTurn = { role: 'user', parts: [{ text: userQuery }] };
             let replyHtml = null;
             let replyPlainText = null;
 
             try {
-                // Ask our Vercel serverless function. The Gemini API key stays on the server.
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 15000);
 
@@ -1362,42 +1566,26 @@ ${stateContextStr}
                     }),
                     signal: controller.signal
                 });
-
                 clearTimeout(timeoutId);
 
                 if (!response.ok) {
-                    const errorBody = await response.text().catch(() => '');
-                    throw new Error(`Sparky API returned ${response.status}: ${errorBody}`);
+                    const body = await response.text().catch(() => '');
+                    throw new Error(`Sparky API returned ${response.status}: ${body}`);
                 }
 
                 const data = await response.json();
-                if (!data?.text || !data.text.trim()) {
-                    throw new Error('Sparky API returned an empty response.');
-                }
+                if (!data?.text || !data.text.trim()) throw new Error('Empty Sparky response');
 
                 replyPlainText = data.text.trim();
-                replyHtml = replyPlainText
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
+                replyHtml = escapeHtml(replyPlainText)
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\n\n/g, '<br><br>')
-                    .replace(/\n- /g, '<br>• ');
-
+                    .replace(/\n[-•] /g, '<br>• ');
             } catch (err) {
-                console.warn('Live Sparky unavailable; using built-in coach instead.', err);
-
-                // Always give students an answer even if Gemini/network/Vercel is unavailable.
-                try {
-                    replyHtml = generatePedagogicalResponse(userQuery);
-                    replyPlainText = replyHtml.replace(/<[^>]*>/g, '');
-                } catch (fallbackErr) {
-                    console.error('Sparky fallback also failed:', fallbackErr);
-                    replyHtml = `<strong>Oops — Sparky had a little tech hiccup! 🐶</strong><br><br>Try pressing <strong>Reset Chat</strong> and asking again. Your speech work is still saved.`;
-                    replyPlainText = 'Sparky had a technical hiccup. Try Reset Chat and ask again.';
-                }
+                console.warn('Live Sparky unavailable; using built-in coaching engine.', err);
+                replyHtml = generatePedagogicalResponse(userQuery);
+                replyPlainText = replyHtml.replace(/<[^>]*>/g, '');
             } finally {
-                // Never leave the thinking bubble stuck on screen.
                 const loader = document.getElementById('sparky-loading');
                 if (loader) loader.remove();
             }
@@ -1405,9 +1593,9 @@ ${stateContextStr}
             chatConversationHistory = [...safeHistory, currentTurn, {
                 role: 'model',
                 parts: [{ text: replyPlainText || '' }]
-            }];
+            }].slice(-12);
 
-            appendSparkyChatMessage(replyHtml || '🐶 Sparky is ready — please try again.');
+            appendSparkyChatMessage(replyHtml || '🐶 Sparky is ready — please try that again.');
         }
 
         function handleUserChatSubmit(e) {

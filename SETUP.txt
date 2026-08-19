@@ -1,18 +1,21 @@
-SPARKY - MORE HELPFUL COACH UPDATE
+SPARKY FINAL - GITHUB / VERCEL
 
-Replace the existing files in your GitHub project with:
+Upload/replace these files in your existing GitHub project:
 - index.html
 - api/sparky.js
 
-This update makes Sparky:
-- answer direct student questions instead of giving generic feedback
-- give specific people/examples for "People of story"
-- help students choose 3 people linked by one theme
-- give better fallback coaching if Gemini is unavailable
+Vercel Environment Variable required:
+GEMINI_API_KEY = your Gemini API key
 
-No new Supabase SQL is required.
+Then redeploy.
 
-Keep your Vercel environment variable:
-GEMINI_API_KEY
+NO NEW SUPABASE SQL IS REQUIRED for this Sparky update.
 
-Redeploy after uploading the files.
+What was improved:
+- secure Gemini call through /api/sparky
+- 15-second timeout and local fallback so Sparky cannot think forever
+- detailed guidance for all 7 competition topics
+- natural handling of questions like who/what/examples/research/3 arguments/what next
+- genuinely topic-specific PEEL guidance
+- draft-aware next-step coaching
+- reduced risk of invented statistics/quotes
