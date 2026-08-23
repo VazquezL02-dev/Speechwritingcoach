@@ -11,30 +11,36 @@ export default async function handler(req, res) {
 
   try {
     const { contents, systemInstruction } = req.body || {};
+
     if (!Array.isArray(contents) || contents.length === 0) {
       return res.status(400).json({ error: 'Missing conversation contents.' });
     }
 
-    const upstream = await fetch(
+    const geminiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents,
-          systemInstruction: { parts: [{ text: String(systemInstruction || '') }] },
+          systemInstruction: {
+            parts: [{ text: String(systemInstruction || '') }]
+          },
           generationConfig: {
-            temperature: 0.65,
-            maxOutputTokens: 500
+            temperature: 0.7,
+            maxOutputTokens: 350
           }
         })
       }
     );
 
-    const data = await upstream.json();
-    if (!upstream.ok) {
+    const data = await geminiResponse.json();
+
+    if (!geminiResponse.ok) {
       console.error('Gemini API error:', data);
-      return res.status(upstream.status).json({ error: data?.error?.message || 'Gemini request failed.' });
+      return res.status(geminiResponse.status).json({
+        error: data?.error?.message || 'Gemini request failed.'
+      });
     }
 
     const text = data?.candidates?.[0]?.content?.parts
@@ -43,7 +49,10 @@ export default async function handler(req, res) {
       .join('\n')
       .trim();
 
-    if (!text) return res.status(502).json({ error: 'Gemini returned no text.' });
+    if (!text) {
+      return res.status(502).json({ error: 'Gemini returned no text.' });
+    }
+
     return res.status(200).json({ text });
   } catch (error) {
     console.error('Sparky server error:', error);

@@ -1,21 +1,19 @@
-SPARKY FINAL - GITHUB / VERCEL
+SPARKY - HELPFUL ON ALL TOPICS
 
-Upload/replace these files in your existing GitHub project:
+Replace these files in your existing GitHub project:
 - index.html
 - api/sparky.js
 
-Vercel Environment Variable required:
-GEMINI_API_KEY = your Gemini API key
+This version:
+- builds on the student's own idea instead of replacing it with a preset list
+- handles natural directions such as saints, family members, sportspeople, First Nations stories, animals, personal experiences and more
+- works across all 7 competition topics
+- keeps secure Gemini via /api/sparky
+- keeps the local fallback if Gemini is unavailable
 
-Then redeploy.
+Vercel still needs:
+GEMINI_API_KEY
 
-NO NEW SUPABASE SQL IS REQUIRED for this Sparky update.
+No new Supabase SQL is required.
 
-What was improved:
-- secure Gemini call through /api/sparky
-- 15-second timeout and local fallback so Sparky cannot think forever
-- detailed guidance for all 7 competition topics
-- natural handling of questions like who/what/examples/research/3 arguments/what next
-- genuinely topic-specific PEEL guidance
-- draft-aware next-step coaching
-- reduced risk of invented statistics/quotes
+After upload, wait for Vercel to show a new Ready/Production deployment, then hard-refresh the site.

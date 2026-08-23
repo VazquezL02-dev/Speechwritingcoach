@@ -1348,6 +1348,93 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
         }
 
         // Comprehensive Local Pedagogical Engine Tailored to All 7 Topics
+
+        function extractStudentDirection(userQuery) {
+            const raw = (userQuery || '').trim();
+            const patterns = [
+                /i want to talk about\s+(.+)/i,
+                /i want to focus on\s+(.+)/i,
+                /i want my speech to be about\s+(.+)/i,
+                /my idea is\s+(.+)/i,
+                /can i (?:talk|speak|write) about\s+(.+)/i,
+                /could i (?:talk|speak|write) about\s+(.+)/i,
+                /what about\s+(.+)/i
+            ];
+            for (const pattern of patterns) {
+                const match = raw.match(pattern);
+                if (match && match[1]) {
+                    return match[1]
+                        .replace(/[?.!]+$/, '')
+                        .trim();
+                }
+            }
+            return null;
+        }
+
+        function buildDirectionResponse(direction, topicKey, topicName, student) {
+            const idea = direction.toLowerCase();
+
+            // Helpful special cases that can occur across multiple topics.
+            if (/\bsaint|saints\b/i.test(direction)) {
+                return `<strong>That could work really well, ${student}! ⛪</strong><br><br>
+If you want to use <strong>saints</strong>, choose them because their stories connect clearly to <strong>"${escapeHtml(topicName)}"</strong>.<br><br>
+Some possibilities:<br>
+• <strong>St Mary MacKillop</strong> — resilience, education and helping others<br>
+• <strong>St Francis of Assisi</strong> — peace, simplicity and care for creation<br>
+• <strong>St Maximilian Kolbe</strong> — courage and self-sacrifice<br>
+• <strong>St Teresa of Calcutta</strong> — compassion and service<br>
+• <strong>St Oscar Romero</strong> — courage and standing up for others<br><br>
+💡 You could focus deeply on <strong>one saint</strong>, or compare <strong>3 saints linked by one theme</strong>.<br><br>
+<em>Which theme interests you most: courage, service, faith, justice or caring for creation?</em>`;
+            }
+
+            if (/\b(nan|nanna|grandma|grandmother|pop|poppy|grandad|grandfather|mum|mom|dad|father|mother|family)\b/i.test(direction)) {
+                return `<strong>Yes — a family story can be a really powerful choice, ${student}. ❤️</strong><br><br>
+You do <strong>not</strong> need a famous person for a strong speech. The key is showing why <strong>${escapeHtml(direction)}</strong> connects to <strong>"${escapeHtml(topicName)}"</strong>.<br><br>
+Think about:<br>
+• What happened in their life?<br>
+• What challenge, value or lesson stands out?<br>
+• How did their story affect you or other people?<br>
+• What bigger message could the audience learn from it?<br><br>
+<em>Tell me one important thing about ${escapeHtml(direction)}, and I’ll help you find the strongest angle.</em>`;
+            }
+
+            if (/\b(football|soccer|rugby|nrl|afl|basketball|netball|athlete|sport|sports|player|players)\b/i.test(direction)) {
+                return `<strong>Sport can definitely work, ${student}! 🏅</strong><br><br>
+The trick is to make the speech about the <strong>story or message</strong>, not just the sport itself.<br><br>
+For <strong>${escapeHtml(direction)}</strong>, you could explore:<br>
+• overcoming injury or failure<br>
+• persistence after losing<br>
+• leadership or teamwork<br>
+• using fame to help others<br>
+• an unexpected turning point in a career<br><br>
+That can connect especially well to <strong>"${escapeHtml(topicName)}"</strong> if you explain the lesson behind the story.<br><br>
+<em>Do you already have a particular player or sporting story in mind?</em>`;
+            }
+
+            if (/\b(aboriginal|torres strait|first nations|songline|songlines|dreaming|dreamtime)\b/i.test(direction)) {
+                return `<strong>Yes — that can be a meaningful direction, ${student}. 🖤💛❤️</strong><br><br>
+Keep it respectful and specific. Rather than treating all Aboriginal and Torres Strait Islander cultures as the same, choose a <strong>particular person, community, story tradition or example</strong> that you can research accurately.<br><br>
+You might explore:<br>
+• how stories pass knowledge across generations<br>
+• connection to Country<br>
+• a change-maker such as Eddie Koiki Mabo or Vincent Lingiari<br>
+• how oral storytelling preserves culture and history<br><br>
+<em>Would you rather focus on storytelling traditions or one person's story?</em>`;
+            }
+
+            // General response for ANY student-proposed direction.
+            return `<strong>Yes — let's build on <em>your</em> idea, ${student}. 💡</strong><br><br>
+You want to focus on <strong>${escapeHtml(direction)}</strong>. That can work if you make the connection to <strong>"${escapeHtml(topicName)}"</strong> really clear.<br><br>
+Ask yourself:<br>
+• What is the most interesting story, fact or example here?<br>
+• What bigger message does it show?<br>
+• Why should a Year 5 audience care?<br>
+• Could this become one strong argument, or the theme for the whole speech?<br><br>
+I won't replace your idea with a preset one — I'll help you develop it.<br><br>
+<em>What is the main thing you want the audience to learn about ${escapeHtml(direction)}?</em>`;
+        }
+
         function generatePedagogicalResponse(userQuery) {
             const state = getStudentCurrentStateContext();
             const q = userQuery.toLowerCase().trim();
@@ -1357,7 +1444,7 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             const topicName = topicData ? topicData.title : (state.topic !== '(Not chosen yet)' ? state.topic : 'your speech topic');
             const student = currentStudent || 'champion';
 
-            const asksWho = /\bwho\b|people|person|人物|include in my speech|talk about|someone/i.test(q);
+            const asksWho = /\bwho\b|include in my speech|someone/i.test(q);
             const asksExamples = /example|examples|ideas|what could|what can|what should|give me|suggest/i.test(q);
             const asksResearch = /research|fact|facts|find out|look up|question|questions/i.test(q);
             const asksThreePoints = /(3|three).*(point|argument|idea)|point.*(3|three)|argument.*(3|three)|what.*arguments|my arguments|body points/i.test(q);
@@ -1365,6 +1452,12 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             const asksFunny = /funny|humour|humor|joke|make it entertaining/i.test(q);
             const asksOpinion = /is this.*good|is my idea|boring|does this work|what do you think/i.test(q);
             const asksNext = /what.*next|what should i do next|where do i go next/i.test(q);
+
+            // If the student proposes their OWN direction, build on it before any broad keyword rule.
+            const studentDirection = extractStudentDirection(userQuery);
+            if (studentDirection && topicData) {
+                return buildDirectionResponse(studentDirection, topicKey, topicName, student);
+            }
 
             // A student hasn't selected a topic yet.
             if (!topicData && state.topic === '(Not chosen yet)') {
@@ -1523,6 +1616,9 @@ COMPETITION REQUIREMENTS:
 
 HOW TO COACH:
 - ANSWER THE STUDENT'S ACTUAL QUESTION FIRST. Never dodge it with generic praise.
+- If the student proposes a specific direction, person, group, object, event or theme (for example saints, their nan, footballers, Aboriginal stories, an animal, a personal experience), BUILD ON THAT IDEA FIRST. Never replace it with a preset list just because the message contains words like "who", "people" or "talk about".
+- Repeat or acknowledge the student's proposed idea so they can see you understood it.
+- Explain how their idea could connect to the chosen topic, give 2-5 relevant options/examples only if useful, and ask one question that helps them narrow it.
 - If they ask WHO, WHAT, WHICH, HOW, for examples, or what to research, give concrete topic-specific options immediately.
 - If they ask for ideas, offer 3-5 distinct choices and briefly explain each.
 - If they ask "what next?", inspect their saved draft and tell them the next unfinished step.
