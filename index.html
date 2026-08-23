@@ -1727,7 +1727,7 @@ ${stateContextStr}
             try {
                 const requestLiveSparky = async () => {
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 15000);
+                    const timeoutId = setTimeout(() => controller.abort(), 30000);
                     try {
                         const response = await fetch('/api/sparky', {
                             method: 'POST',
@@ -1752,14 +1752,22 @@ ${stateContextStr}
                     }
                 };
 
-                // Try the live AI first. If a transient network/model error occurs, retry once.
-                try {
-                    replyPlainText = await requestLiveSparky();
-                } catch (firstError) {
-                    console.warn('First live Sparky attempt failed; retrying once.', firstError);
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    replyPlainText = await requestLiveSparky();
+                // Try the live AI first. School Wi‑Fi/iPads can be slower, so retry twice.
+                let lastLiveError = null;
+                for (let attempt = 1; attempt <= 3; attempt++) {
+                    try {
+                        replyPlainText = await requestLiveSparky();
+                        lastLiveError = null;
+                        break;
+                    } catch (attemptError) {
+                        lastLiveError = attemptError;
+                        console.warn(`Live Sparky attempt ${attempt} failed.`, attemptError);
+                        if (attempt < 3) {
+                            await new Promise(resolve => setTimeout(resolve, 750 * attempt));
+                        }
+                    }
                 }
+                if (lastLiveError) throw lastLiveError;
                 replyHtml = escapeHtml(replyPlainText)
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\n\n/g, '<br><br>')
@@ -1769,7 +1777,22 @@ ${stateContextStr}
                 console.warn('Live Sparky unavailable; using built-in coaching engine.', err);
                 replyHtml = generatePedagogicalResponse(userQuery);
                 replyPlainText = replyHtml.replace(/<[^>]*>/g, '');
-                replyHtml += `<div class="mt-3 text-[9px] uppercase tracking-wider text-slate-300 font-bold">Backup Coach</div>`;
+
+                let backupReason = 'connection';
+                const errText = String(err?.message || err || '').toLowerCase();
+                if (err?.name === 'AbortError' || errText.includes('abort') || errText.includes('timeout')) {
+                    backupReason = 'timeout';
+                } else if (errText.includes('429')) {
+                    backupReason = 'busy';
+                } else if (errText.includes('401') || errText.includes('403')) {
+                    backupReason = 'access';
+                } else if (errText.includes('404')) {
+                    backupReason = 'model';
+                } else if (errText.includes('500') || errText.includes('502') || errText.includes('503')) {
+                    backupReason = 'server';
+                }
+
+                replyHtml += `<div class="mt-3 text-[9px] uppercase tracking-wider text-slate-300 font-bold">Backup Coach • ${backupReason}</div>`;
             } finally {
                 const loader = document.getElementById('sparky-loading');
                 if (loader) loader.remove();

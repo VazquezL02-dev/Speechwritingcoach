@@ -1,21 +1,23 @@
-SPARKY INDEX-ONLY FIX
+SPARKY - IPAD / SCHOOL WIFI RESILIENCE FIX
 
-You only need to replace:
+Replace ONLY:
 - index.html
 
-Do NOT change:
-- api/sparky.js
-- Vercel environment variables
-- Supabase / SQL
+Do not change api/sparky.js, Vercel settings, Supabase, or SQL.
 
-Changes:
-- normal typed messages still go to Live AI first
-- Live AI retries once before falling back
-- Sparky recognises natural phrases such as "I'm interested in gaming"
-- backup coach now has a gaming category too, so even a temporary API failure gives useful guidance
+What changed:
+- Live AI timeout increased from 15 seconds to 30 seconds.
+- Sparky now tries Live AI up to 3 times before using Backup Coach.
+- If Backup Coach is used, the tiny label now says WHY:
+  Backup Coach • timeout
+  Backup Coach • busy
+  Backup Coach • access
+  Backup Coach • model
+  Backup Coach • server
+  Backup Coach • connection
 
-After uploading index.html to GitHub:
+After upload:
 1. Wait for Vercel Ready / Production.
-2. Hard refresh the live site.
-3. Test: "I'm interested in gaming, who can I do?"
-4. Preferably the response should say LIVE AI COACH.
+2. Hard-refresh the iPad.
+3. Test Sparky.
+4. If it still falls back, send the exact tiny Backup Coach reason shown.
