@@ -1,19 +1,21 @@
-SPARKY - GEMINI MODEL FIX
+SPARKY INDEX-ONLY FIX
 
-EASIEST UPDATE:
-1. In GitHub, open the api folder.
-2. Replace ONLY api/sparky.js with the sparky.js in this ZIP.
-3. Commit the upload.
-4. Wait for Vercel to show the new deployment as Ready / Production.
-5. Hard-refresh Speech Writing Coach.
-6. Ask Sparky: "I want to talk about actors."
+You only need to replace:
+- index.html
 
-The reply should show LIVE AI COACH at the bottom.
+Do NOT change:
+- api/sparky.js
+- Vercel environment variables
+- Supabase / SQL
 
-This update uses Google's gemini-flash-latest alias so Sparky is not tied to a retired dated model.
+Changes:
+- normal typed messages still go to Live AI first
+- Live AI retries once before falling back
+- Sparky recognises natural phrases such as "I'm interested in gaming"
+- backup coach now has a gaming category too, so even a temporary API failure gives useful guidance
 
-You do NOT need:
-- new SQL
-- Supabase changes
-- a new environment variable
-- to change index.html for this fix
+After uploading index.html to GitHub:
+1. Wait for Vercel Ready / Production.
+2. Hard refresh the live site.
+3. Test: "I'm interested in gaming, who can I do?"
+4. Preferably the response should say LIVE AI COACH.

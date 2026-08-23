@@ -1356,6 +1356,11 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
                 /i want to focus on\s+(.+)/i,
                 /i want my speech to be about\s+(.+)/i,
                 /my idea is\s+(.+)/i,
+                /i(?:'|’)m interested in\s+(.+?)(?:,|\?|$)/i,
+                /i am interested in\s+(.+?)(?:,|\?|$)/i,
+                /i(?:'|’)m into\s+(.+?)(?:,|\?|$)/i,
+                /i like\s+(.+?)(?:,|\?|$)/i,
+                /i love\s+(.+?)(?:,|\?|$)/i,
                 /can i (?:talk|speak|write) about\s+(.+)/i,
                 /could i (?:talk|speak|write) about\s+(.+)/i,
                 /what about\s+(.+)/i
@@ -1375,6 +1380,19 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             const idea = direction.toLowerCase();
 
             const categoryIdeas = [
+                {
+                    test: /\bgaming|games|video games|gamer|gamers|game designer|game developer|esports\b/i,
+                    title: "Gaming",
+                    emoji: "🎮",
+                    items: [
+                        "<strong>Shigeru Miyamoto</strong> — game design, creativity and the creation of influential Nintendo characters",
+                        "<strong>Hideo Kojima</strong> — storytelling and innovation in video games",
+                        "<strong>Brenda Romero</strong> — game design and using games to explore complex ideas",
+                        "<strong>John Carmack</strong> — programming and technical innovation in game development",
+                        "<strong>an esports player or streamer</strong> — persistence, teamwork, performance and building an online career"
+                    ],
+                    theme: "The people and ideas behind the games we play"
+                },
                 {
                     test: /\bscientist|scientists|science\b/i,
                     title: "Scientists",
@@ -1666,7 +1684,8 @@ COMPETITION REQUIREMENTS:
 
 HOW TO COACH:
 - ANSWER THE STUDENT'S ACTUAL QUESTION FIRST. Never dodge it with generic praise.
-- If the student proposes ANY specific direction, person, group, object, event, profession, interest or theme, BUILD ON THAT EXACT IDEA FIRST. Never replace it with a preset list.
+- If the student proposes ANY specific direction, person, group, object, event, profession, hobby, interest or theme, BUILD ON THAT EXACT IDEA FIRST. Never replace it with a preset list.
+- Treat wording such as "I'm interested in gaming", "I like space", "I love music", "I'm into football", or "who can I do?" as a request to suggest relevant people/examples connected to that interest.
 - Examples include saints, scientists, athletes, family members, inventors, artists, animals, space, sport, music, a personal experience, a historical event, or anything else the student suggests.
 - First show that you understood the exact idea.
 - Then actively help develop it: give 3-5 relevant, concrete examples or sub-directions when useful, briefly explain WHY each one could fit the chosen topic, and suggest a possible unifying theme.
@@ -1706,29 +1725,41 @@ ${stateContextStr}
             let replyPlainText = null;
 
             try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const requestLiveSparky = async () => {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 15000);
+                    try {
+                        const response = await fetch('/api/sparky', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [...safeHistory, currentTurn],
+                                systemInstruction
+                            }),
+                            signal: controller.signal
+                        });
 
-                const response = await fetch('/api/sparky', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [...safeHistory, currentTurn],
-                        systemInstruction
-                    }),
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
+                        if (!response.ok) {
+                            const body = await response.text().catch(() => '');
+                            throw new Error(`Sparky API returned ${response.status}: ${body}`);
+                        }
 
-                if (!response.ok) {
-                    const body = await response.text().catch(() => '');
-                    throw new Error(`Sparky API returned ${response.status}: ${body}`);
+                        const data = await response.json();
+                        if (!data?.text || !data.text.trim()) throw new Error('Empty Sparky response');
+                        return data.text.trim();
+                    } finally {
+                        clearTimeout(timeoutId);
+                    }
+                };
+
+                // Try the live AI first. If a transient network/model error occurs, retry once.
+                try {
+                    replyPlainText = await requestLiveSparky();
+                } catch (firstError) {
+                    console.warn('First live Sparky attempt failed; retrying once.', firstError);
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    replyPlainText = await requestLiveSparky();
                 }
-
-                const data = await response.json();
-                if (!data?.text || !data.text.trim()) throw new Error('Empty Sparky response');
-
-                replyPlainText = data.text.trim();
                 replyHtml = escapeHtml(replyPlainText)
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\n\n/g, '<br><br>')
