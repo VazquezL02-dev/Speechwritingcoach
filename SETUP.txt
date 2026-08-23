@@ -1,19 +1,24 @@
-SPARKY - HELPFUL ON ALL TOPICS
+SPARKY - LIVE AI FIRST VERSION
 
-Replace these files in your existing GitHub project:
+Replace in GitHub:
 - index.html
 - api/sparky.js
 
 This version:
-- builds on the student's own idea instead of replacing it with a preset list
-- handles natural directions such as saints, family members, sportspeople, First Nations stories, animals, personal experiences and more
-- works across all 7 competition topics
-- keeps secure Gemini via /api/sparky
-- keeps the local fallback if Gemini is unavailable
+- lets Gemini handle natural student conversation FIRST
+- tells Gemini to actively develop any student-proposed idea
+- keeps the hard-coded topic engine only as a backup
+- gives the backup coach better help for common directions such as scientists, saints, sportspeople, inventors, creative people, family and First Nations stories
+- adds a tiny label under Sparky replies: "Live AI Coach" or "Backup Coach"
+  This makes it easy to see whether Gemini is actually responding.
 
-Vercel still needs:
+Vercel environment variable required:
 GEMINI_API_KEY
 
 No new Supabase SQL is required.
 
-After upload, wait for Vercel to show a new Ready/Production deployment, then hard-refresh the site.
+After upload:
+1. Wait for a new Vercel Ready/Production deployment.
+2. Hard-refresh the site.
+3. Test: "I want to talk about scientists".
+4. Look at the tiny label under Sparky's reply.

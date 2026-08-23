@@ -1374,65 +1374,115 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
         function buildDirectionResponse(direction, topicKey, topicName, student) {
             const idea = direction.toLowerCase();
 
-            // Helpful special cases that can occur across multiple topics.
-            if (/\bsaint|saints\b/i.test(direction)) {
-                return `<strong>That could work really well, ${student}! ⛪</strong><br><br>
-If you want to use <strong>saints</strong>, choose them because their stories connect clearly to <strong>"${escapeHtml(topicName)}"</strong>.<br><br>
-Some possibilities:<br>
-• <strong>St Mary MacKillop</strong> — resilience, education and helping others<br>
-• <strong>St Francis of Assisi</strong> — peace, simplicity and care for creation<br>
-• <strong>St Maximilian Kolbe</strong> — courage and self-sacrifice<br>
-• <strong>St Teresa of Calcutta</strong> — compassion and service<br>
-• <strong>St Oscar Romero</strong> — courage and standing up for others<br><br>
-💡 You could focus deeply on <strong>one saint</strong>, or compare <strong>3 saints linked by one theme</strong>.<br><br>
-<em>Which theme interests you most: courage, service, faith, justice or caring for creation?</em>`;
-            }
+            const categoryIdeas = [
+                {
+                    test: /\bscientist|scientists|science\b/i,
+                    title: "Scientists",
+                    emoji: "🔬",
+                    items: [
+                        "<strong>Marie Curie</strong> — persistence, discovery and overcoming barriers",
+                        "<strong>Jane Goodall</strong> — curiosity, animals and changing what people understood about chimpanzees",
+                        "<strong>Howard Florey</strong> — an Australian scientist whose work contributed to the development of penicillin",
+                        "<strong>Katherine Johnson</strong> — mathematics, space exploration and overcoming discrimination",
+                        "<strong>Stephen Hawking</strong> — curiosity about the universe and persistence through major challenges"
+                    ],
+                    theme: "Curious minds whose stories changed the world"
+                },
+                {
+                    test: /\bsaint|saints\b/i,
+                    title: "Saints",
+                    emoji: "⛪",
+                    items: [
+                        "<strong>St Mary MacKillop</strong> — resilience, education and helping others",
+                        "<strong>St Francis of Assisi</strong> — peace, simplicity and care for creation",
+                        "<strong>St Maximilian Kolbe</strong> — courage and self-sacrifice",
+                        "<strong>St Teresa of Calcutta</strong> — compassion and service",
+                        "<strong>St Oscar Romero</strong> — courage and standing up for others"
+                    ],
+                    theme: "Ordinary people who showed extraordinary faith and courage"
+                },
+                {
+                    test: /\bfootball|soccer|rugby|nrl|afl|basketball|netball|athlete|sport|sports|player|players\b/i,
+                    title: "Sportspeople",
+                    emoji: "🏅",
+                    items: [
+                        "<strong>an athlete who overcame injury</strong> — resilience after a setback",
+                        "<strong>a captain or team leader</strong> — leadership and responsibility",
+                        "<strong>an athlete who challenged discrimination</strong> — courage and fairness",
+                        "<strong>an underdog story</strong> — persistence when success looked unlikely"
+                    ],
+                    theme: "The stories behind success matter more than the scoreboard"
+                },
+                {
+                    test: /\binventor|inventors|invention|technology|engineer|engineers\b/i,
+                    title: "Inventors and engineers",
+                    emoji: "⚙️",
+                    items: [
+                        "<strong>a medical inventor</strong> — solving a problem that helped people",
+                        "<strong>a transport or aviation pioneer</strong> — taking risks and changing how people travel",
+                        "<strong>an environmental inventor</strong> — designing a solution to waste or pollution",
+                        "<strong>a young inventor</strong> — showing that age does not stop good ideas"
+                    ],
+                    theme: "Ideas that began with a problem and became a solution"
+                },
+                {
+                    test: /\bartist|artists|musician|musicians|singer|singers|actor|actors|writer|writers|author|authors\b/i,
+                    title: "Creative people",
+                    emoji: "🎨",
+                    items: [
+                        "<strong>a writer whose work changed people's thinking</strong>",
+                        "<strong>a musician who used their platform to help others</strong>",
+                        "<strong>an artist who told an important story through their work</strong>",
+                        "<strong>a performer who overcame a major setback</strong>"
+                    ],
+                    theme: "Stories can be told through more than words"
+                }
+            ];
 
-            if (/\b(nan|nanna|grandma|grandmother|pop|poppy|grandad|grandfather|mum|mom|dad|father|mother|family)\b/i.test(direction)) {
-                return `<strong>Yes — a family story can be a really powerful choice, ${student}. ❤️</strong><br><br>
-You do <strong>not</strong> need a famous person for a strong speech. The key is showing why <strong>${escapeHtml(direction)}</strong> connects to <strong>"${escapeHtml(topicName)}"</strong>.<br><br>
-Think about:<br>
-• What happened in their life?<br>
-• What challenge, value or lesson stands out?<br>
-• How did their story affect you or other people?<br>
-• What bigger message could the audience learn from it?<br><br>
-<em>Tell me one important thing about ${escapeHtml(direction)}, and I’ll help you find the strongest angle.</em>`;
-            }
-
-            if (/\b(football|soccer|rugby|nrl|afl|basketball|netball|athlete|sport|sports|player|players)\b/i.test(direction)) {
-                return `<strong>Sport can definitely work, ${student}! 🏅</strong><br><br>
-The trick is to make the speech about the <strong>story or message</strong>, not just the sport itself.<br><br>
-For <strong>${escapeHtml(direction)}</strong>, you could explore:<br>
-• overcoming injury or failure<br>
-• persistence after losing<br>
-• leadership or teamwork<br>
-• using fame to help others<br>
-• an unexpected turning point in a career<br><br>
-That can connect especially well to <strong>"${escapeHtml(topicName)}"</strong> if you explain the lesson behind the story.<br><br>
-<em>Do you already have a particular player or sporting story in mind?</em>`;
+            // Family/personal directions need questions rather than invented examples.
+            if (/\b(nan|nanna|grandma|grandmother|pop|poppy|grandad|grandfather|mum|mom|dad|father|mother|family|brother|sister|friend|myself|me)\b/i.test(direction)) {
+                return `<strong>Yes — a personal story could be a powerful choice, ${student}. ❤️</strong><br><br>
+You do <strong>not</strong> need a famous person for a strong speech. Your idea about <strong>${escapeHtml(direction)}</strong> can work if you connect it clearly to <strong>"${escapeHtml(topicName)}"</strong>.<br><br>
+Possible themes could be:<br>
+• courage during a difficult time<br>
+• kindness or service to others<br>
+• a big change or turning point<br>
+• persistence when something was hard<br>
+• a lesson that changed the way you think<br><br>
+<em>What is one important thing that happened in their story?</em>`;
             }
 
             if (/\b(aboriginal|torres strait|first nations|songline|songlines|dreaming|dreamtime)\b/i.test(direction)) {
-                return `<strong>Yes — that can be a meaningful direction, ${student}. 🖤💛❤️</strong><br><br>
-Keep it respectful and specific. Rather than treating all Aboriginal and Torres Strait Islander cultures as the same, choose a <strong>particular person, community, story tradition or example</strong> that you can research accurately.<br><br>
-You might explore:<br>
+                return `<strong>That can be a meaningful direction, ${student}. 🖤💛❤️</strong><br><br>
+Keep it respectful and specific. Rather than treating all Aboriginal and Torres Strait Islander cultures as the same, choose a <strong>particular person, community, story tradition or researched example</strong>.<br><br>
+You could explore:<br>
 • how stories pass knowledge across generations<br>
 • connection to Country<br>
 • a change-maker such as Eddie Koiki Mabo or Vincent Lingiari<br>
 • how oral storytelling preserves culture and history<br><br>
-<em>Would you rather focus on storytelling traditions or one person's story?</em>`;
+<em>Would you rather focus on a storytelling tradition or one person's story?</em>`;
             }
 
-            // General response for ANY student-proposed direction.
-            return `<strong>Yes — let's build on <em>your</em> idea, ${student}. 💡</strong><br><br>
-You want to focus on <strong>${escapeHtml(direction)}</strong>. That can work if you make the connection to <strong>"${escapeHtml(topicName)}"</strong> really clear.<br><br>
-Ask yourself:<br>
-• What is the most interesting story, fact or example here?<br>
-• What bigger message does it show?<br>
-• Why should a Year 5 audience care?<br>
-• Could this become one strong argument, or the theme for the whole speech?<br><br>
-I won't replace your idea with a preset one — I'll help you develop it.<br><br>
-<em>What is the main thing you want the audience to learn about ${escapeHtml(direction)}?</em>`;
+            for (const cat of categoryIdeas) {
+                if (cat.test.test(direction)) {
+                    return `<strong>${cat.title} could be a strong direction, ${student}! ${cat.emoji}</strong><br><br>
+For <strong>"${escapeHtml(topicName)}"</strong>, you could explore:<br><br>
+${cat.items.map(x => `• ${x}`).join('<br>')}<br><br>
+💡 <strong>Possible theme:</strong> <em>${cat.theme}</em>.<br><br>
+You don't have to use these exact examples — they are there to help you find the kind of story you want.<br><br>
+<em>Which example or type of story sounds most interesting to you?</em>`;
+                }
+            }
+
+            // General local fallback for an arbitrary idea.
+            return `<strong>Let's build on <em>your</em> idea, ${student}. 💡</strong><br><br>
+You want to focus on <strong>${escapeHtml(direction)}</strong>. That can work with <strong>"${escapeHtml(topicName)}"</strong> if the story or example shows a clear message.<br><br>
+A strong next step is to choose one of these directions:<br>
+• a person or example who overcame something<br>
+• a discovery, decision or event that changed others<br>
+• a surprising story your audience probably does not know<br>
+• a lesson that connects back to the topic<br><br>
+<em>What interests you most about ${escapeHtml(direction)}?</em>`;
         }
 
         function generatePedagogicalResponse(userQuery) {
@@ -1616,9 +1666,15 @@ COMPETITION REQUIREMENTS:
 
 HOW TO COACH:
 - ANSWER THE STUDENT'S ACTUAL QUESTION FIRST. Never dodge it with generic praise.
-- If the student proposes a specific direction, person, group, object, event or theme (for example saints, their nan, footballers, Aboriginal stories, an animal, a personal experience), BUILD ON THAT IDEA FIRST. Never replace it with a preset list just because the message contains words like "who", "people" or "talk about".
-- Repeat or acknowledge the student's proposed idea so they can see you understood it.
-- Explain how their idea could connect to the chosen topic, give 2-5 relevant options/examples only if useful, and ask one question that helps them narrow it.
+- If the student proposes ANY specific direction, person, group, object, event, profession, interest or theme, BUILD ON THAT EXACT IDEA FIRST. Never replace it with a preset list.
+- Examples include saints, scientists, athletes, family members, inventors, artists, animals, space, sport, music, a personal experience, a historical event, or anything else the student suggests.
+- First show that you understood the exact idea.
+- Then actively help develop it: give 3-5 relevant, concrete examples or sub-directions when useful, briefly explain WHY each one could fit the chosen topic, and suggest a possible unifying theme.
+- Do not merely respond with reflective questions like "what is interesting about it?" when you can give useful examples.
+- If the student says "I want to talk about scientists", suggest actual scientists appropriate to the topic and explain why each could work.
+- If the student says "I want to talk about saints", suggest actual saints appropriate to the topic and explain why each could work.
+- If the student proposes a family member or personal experience, do not invent facts about them; instead help identify possible themes and ask for one relevant detail.
+- End with ONE narrowing question that moves the student forward.
 - If they ask WHO, WHAT, WHICH, HOW, for examples, or what to research, give concrete topic-specific options immediately.
 - If they ask for ideas, offer 3-5 distinct choices and briefly explain each.
 - If they ask "what next?", inspect their saved draft and tell them the next unfinished step.
@@ -1677,10 +1733,12 @@ ${stateContextStr}
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\n\n/g, '<br><br>')
                     .replace(/\n[-•] /g, '<br>• ');
+                replyHtml += `<div class="mt-3 text-[9px] uppercase tracking-wider text-slate-300 font-bold">Live AI Coach</div>`;
             } catch (err) {
                 console.warn('Live Sparky unavailable; using built-in coaching engine.', err);
                 replyHtml = generatePedagogicalResponse(userQuery);
                 replyPlainText = replyHtml.replace(/<[^>]*>/g, '');
+                replyHtml += `<div class="mt-3 text-[9px] uppercase tracking-wider text-slate-300 font-bold">Backup Coach</div>`;
             } finally {
                 const loader = document.getElementById('sparky-loading');
                 if (loader) loader.remove();
