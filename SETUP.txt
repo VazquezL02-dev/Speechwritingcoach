@@ -1,24 +1,19 @@
-SPARKY - LIVE AI FIRST VERSION
+SPARKY - GEMINI MODEL FIX
 
-Replace in GitHub:
-- index.html
-- api/sparky.js
+EASIEST UPDATE:
+1. In GitHub, open the api folder.
+2. Replace ONLY api/sparky.js with the sparky.js in this ZIP.
+3. Commit the upload.
+4. Wait for Vercel to show the new deployment as Ready / Production.
+5. Hard-refresh Speech Writing Coach.
+6. Ask Sparky: "I want to talk about actors."
 
-This version:
-- lets Gemini handle natural student conversation FIRST
-- tells Gemini to actively develop any student-proposed idea
-- keeps the hard-coded topic engine only as a backup
-- gives the backup coach better help for common directions such as scientists, saints, sportspeople, inventors, creative people, family and First Nations stories
-- adds a tiny label under Sparky replies: "Live AI Coach" or "Backup Coach"
-  This makes it easy to see whether Gemini is actually responding.
+The reply should show LIVE AI COACH at the bottom.
 
-Vercel environment variable required:
-GEMINI_API_KEY
+This update uses Google's gemini-flash-latest alias so Sparky is not tied to a retired dated model.
 
-No new Supabase SQL is required.
-
-After upload:
-1. Wait for a new Vercel Ready/Production deployment.
-2. Hard-refresh the site.
-3. Test: "I want to talk about scientists".
-4. Look at the tiny label under Sparky's reply.
+You do NOT need:
+- new SQL
+- Supabase changes
+- a new environment variable
+- to change index.html for this fix
