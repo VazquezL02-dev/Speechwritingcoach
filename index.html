@@ -639,7 +639,8 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
         const CLASS_5B_STUDENTS = [
             "Lily", "Xander", "John", "Fabian", "Charles", "Katharine", "Marion", 
             "Elyse", "Katherine", "Joy", "Syon", "Reyansh", "Oskar", "Angelina", 
-            "Lyon", "Georgia", "Jimmy", "Leah", "Raymond", "Javen"
+            "Lyon", "Georgia", "Jimmy", "Leah", "Raymond", "Javen",
+            "Addison", "Alex", "Odin", "Aron", "Louise", "Anna", "Lilyah", "Marcus", "Ryan"
         ];
 
         // Comprehensive Topic Guide Database for All 2026 Diocesan Competition Topics
@@ -864,6 +865,7 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
 
         // Active Profile State
         let currentStudent = null;
+        let currentClass = '5W';
         let chatConversationHistory = [];
 
         // Teleprompter state
@@ -878,9 +880,20 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             renderStudentGrids();
             
             // Check if profile saved
-            const lastStudent = localStorage.getItem('active_speech_student_2026');
-            if (lastStudent) {
-                setStudentProfile(lastStudent, false);
+            const lastProfileRaw = localStorage.getItem('active_speech_profile_2026');
+            const oldLastStudent = localStorage.getItem('active_speech_student_2026');
+            if (lastProfileRaw) {
+                try {
+                    const lastProfile = JSON.parse(lastProfileRaw);
+                    setStudentProfile(lastProfile.name, false, lastProfile.className || '5W');
+                    document.getElementById('profile-modal').classList.add('hidden');
+                } catch (e) {
+                    openProfileModal();
+                }
+            } else if (oldLastStudent) {
+                // Backwards compatibility for profiles saved before classes were added to the key.
+                const inferredClass = CLASS_5B_STUDENTS.includes(oldLastStudent) && !CLASS_5W_STUDENTS.includes(oldLastStudent) ? '5B' : '5W';
+                setStudentProfile(oldLastStudent, false, inferredClass);
                 document.getElementById('profile-modal').classList.add('hidden');
             } else {
                 openProfileModal();
@@ -892,14 +905,14 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             const grid5b = document.getElementById('grid-class-5b');
 
             grid5w.innerHTML = CLASS_5W_STUDENTS.map(name => `
-                <button onclick="setStudentProfile('${name}')" class="p-3 bg-slate-50 hover:bg-purple-50 hover:border-brand-purple border border-slate-200 rounded-2xl font-bold text-xs text-slate-700 flex items-center space-x-2 transition-all shadow-2xs">
+                <button onclick="setStudentProfile('${name}', true, '5W')" class="p-3 bg-slate-50 hover:bg-purple-50 hover:border-brand-purple border border-slate-200 rounded-2xl font-bold text-xs text-slate-700 flex items-center space-x-2 transition-all shadow-2xs">
                     <span class="w-6 h-6 rounded-full bg-purple-100 text-brand-purple flex items-center justify-center font-bold text-[10px]">${name[0]}</span>
                     <span class="truncate">${name}</span>
                 </button>
             `).join('');
 
             grid5b.innerHTML = CLASS_5B_STUDENTS.map(name => `
-                <button onclick="setStudentProfile('${name}')" class="p-3 bg-slate-50 hover:bg-purple-50 hover:border-brand-purple border border-slate-200 rounded-2xl font-bold text-xs text-slate-700 flex items-center space-x-2 transition-all shadow-2xs">
+                <button onclick="setStudentProfile('${name}', true, '5B')" class="p-3 bg-slate-50 hover:bg-purple-50 hover:border-brand-purple border border-slate-200 rounded-2xl font-bold text-xs text-slate-700 flex items-center space-x-2 transition-all shadow-2xs">
                     <span class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-[10px]">${name[0]}</span>
                     <span class="truncate">${name}</span>
                 </button>
@@ -926,12 +939,14 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
             document.getElementById('profile-modal').classList.remove('hidden');
         }
 
-        function setStudentProfile(studentName, autoClose = true) {
+        function setStudentProfile(studentName, autoClose = true, className = '5W') {
             if (currentStudent) {
                 saveData();
             }
 
             currentStudent = studentName;
+            currentClass = className;
+            localStorage.setItem('active_speech_profile_2026', JSON.stringify({ name: studentName, className }));
             localStorage.setItem('active_speech_student_2026', studentName);
 
             // Update Header
@@ -961,12 +976,26 @@ Mr Chairperson, adjudicators, teachers, and fellow Year 5 students.
                 chatHistory: chatConversationHistory,
                 chatHTML: document.getElementById('coach-chat-box').innerHTML
             };
-            localStorage.setItem(`year5_speech_data_${currentStudent.toLowerCase()}`, JSON.stringify(data));
+            localStorage.setItem(`year5_speech_data_${currentClass.toLowerCase()}_${currentStudent.toLowerCase()}`, JSON.stringify(data));
         }
 
         function loadSavedData() {
             if (!currentStudent) return;
-            const raw = localStorage.getItem(`year5_speech_data_${currentStudent.toLowerCase()}`);
+            const classKey = `year5_speech_data_${currentClass.toLowerCase()}_${currentStudent.toLowerCase()}`;
+            let raw = localStorage.getItem(classKey);
+
+            // Migrate old first-name-only data for students whose name is unique across the two classes.
+            if (!raw) {
+                const duplicateName = CLASS_5W_STUDENTS.includes(currentStudent) && CLASS_5B_STUDENTS.includes(currentStudent);
+                if (!duplicateName) {
+                    const legacyKey = `year5_speech_data_${currentStudent.toLowerCase()}`;
+                    const legacyRaw = localStorage.getItem(legacyKey);
+                    if (legacyRaw) {
+                        raw = legacyRaw;
+                        localStorage.setItem(classKey, legacyRaw);
+                    }
+                }
+            }
             
             // Clear inputs first
             document.getElementById('speech-topic').value = '';
