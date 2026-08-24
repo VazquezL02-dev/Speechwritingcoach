@@ -1,23 +1,23 @@
-SPARKY - IPAD / SCHOOL WIFI RESILIENCE FIX
+SPARKY - CLASSROOM BUSY FIX
 
 Replace ONLY:
+api/sparky.js
+
+Do not change:
 - index.html
+- Supabase / SQL
+- Vercel environment variables
 
-Do not change api/sparky.js, Vercel settings, Supabase, or SQL.
-
-What changed:
-- Live AI timeout increased from 15 seconds to 30 seconds.
-- Sparky now tries Live AI up to 3 times before using Backup Coach.
-- If Backup Coach is used, the tiny label now says WHY:
-  Backup Coach • timeout
-  Backup Coach • busy
-  Backup Coach • access
-  Backup Coach • model
-  Backup Coach • server
-  Backup Coach • connection
+This version:
+- uses gemini-3.5-flash-lite
+- is better suited to high-volume, low-latency classroom use
+- sends less conversation history per request
+- handles 429 "busy" errors more cleanly
 
 After upload:
-1. Wait for Vercel Ready / Production.
-2. Hard-refresh the iPad.
-3. Test Sparky.
-4. If it still falls back, send the exact tiny Backup Coach reason shown.
+1. Commit api/sparky.js in GitHub.
+2. Wait for Vercel Ready / Production.
+3. Hard-refresh the student iPad.
+4. Test Sparky again.
+
+If many students use Sparky simultaneously, your Google API project's quota can still be reached. If that happens consistently, the long-term fix is increasing the Gemini API project tier/quota.

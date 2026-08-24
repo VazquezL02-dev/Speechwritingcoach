@@ -31,12 +31,15 @@ export default async function handler(req, res) {
     // Gemini conversations should start with a user turn.
     while (safeContents.length && safeContents[0].role !== 'user') safeContents.shift();
 
+    // Keep classroom requests lightweight to reduce rate-limit pressure.
+    const recentContents = safeContents.slice(-6);
+
     if (!safeContents.length) {
       return res.status(400).json({ error: 'No valid user message was supplied.' });
     }
 
     const upstream = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent',
       {
         method: 'POST',
         headers: {
@@ -44,13 +47,12 @@ export default async function handler(req, res) {
           'x-goog-api-key': apiKey
         },
         body: JSON.stringify({
-          contents: safeContents,
+          contents: recentContents,
           systemInstruction: {
             parts: [{ text: String(systemInstruction || '') }]
           },
           generationConfig: {
-            temperature: 0.75,
-            maxOutputTokens: 650
+            maxOutputTokens: 450
           }
         })
       }
@@ -60,6 +62,14 @@ export default async function handler(req, res) {
 
     if (!upstream.ok) {
       console.error('Gemini API error:', JSON.stringify(data));
+
+      if (upstream.status === 429) {
+        return res.status(429).json({
+          error: 'Sparky is busy right now. Please try again shortly.',
+          retryAfterSeconds: 20
+        });
+      }
+
       return res.status(upstream.status).json({
         error: data?.error?.message || 'Gemini request failed.'
       });
